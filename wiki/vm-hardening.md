@@ -22,7 +22,7 @@ Docs:
 
 ### Create a non-root user
 
-1. To connect to the VM as root,
+1. To connect to the VM as the [`root` user](./linux.md#the-root-user),
 
    [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
 

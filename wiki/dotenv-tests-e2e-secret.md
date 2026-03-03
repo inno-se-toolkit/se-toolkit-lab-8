@@ -20,4 +20,4 @@ Example: `http://10.93.24.1:42002`
 
 ## `API_KEY`
 
-The secret key used to authorize [API](./web-development.md#api) requests. Must match [`API_KEY`](./dotenv-docker-secret.md#api_key) in [`.env.docker.secret`](./dotenv-docker-secret.md#what-is-envdockersecret) on the VM.
+The secret key used to authorize [API](./api.md#what-is-an-api) requests. Must match [`API_KEY`](./dotenv-docker-secret.md#api_key) in [`.env.docker.secret`](./dotenv-docker-secret.md#what-is-envdockersecret) on the VM.

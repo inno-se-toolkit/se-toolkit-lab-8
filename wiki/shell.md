@@ -60,7 +60,7 @@ Most `bash` commands in this course work in `zsh` as well.
 ## Shell prompt
 
 The shell prompt is the text the shell displays before each command, indicating it is ready to accept input.
-It typically shows the current [user](./linux.md#users), machine name, and [working directory](#current-working-directory).
+It typically shows the current [user](./operating-system.md#user), machine name, and [working directory](#current-working-directory).
 
 A typical `bash` prompt looks like:
 

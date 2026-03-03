@@ -9,7 +9,7 @@
 
 ## What is `Swagger UI`
 
-`Swagger UI` is an interactive web page that lets you explore and test a [REST API](./web-development.md#rest-api).
+`Swagger UI` is an interactive web page that lets you explore and test a [REST API](./api.md#rest-api).
 
 `FastAPI` auto-generates `Swagger UI` at the `/docs` path.
 
@@ -39,7 +39,7 @@ If the API requires authentication:
 
 1. [Open `Swagger UI`](#open-swagger-ui).
 2. Click the `Authorize` button (lock icon at the top right).
-3. In the `Value` field, enter the [`<api-key>`](./web-development.md#api-key).
+3. In the `Value` field, enter the [`<api-key>`](./api.md#api-key).
 4. Click `Authorize`.
 5. Click `Close`.
 

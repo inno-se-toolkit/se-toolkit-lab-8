@@ -3,88 +3,50 @@
 <h2>Table of contents</h2>
 
 - [What is `Linux`](#what-is-linux)
-- [Linux distro](#linux-distro)
-  - [`Ubuntu`](#ubuntu)
-  - [`ArchLinux`](#archlinux)
-  - [`NixOS`](#nixos)
-  - [`CachyOS`](#cachyos)
-- [Groups](#groups)
-- [Users](#users)
+- [User](#user)
+- [Group](#group)
   - [The `root` user](#the-root-user)
   - [A non-root user](#a-non-root-user)
-  - [Get my current user](#get-my-current-user)
-  - [Create a non-root user](#create-a-non-root-user)
 - [Permissions](#permissions)
+- [`Linux` administration](#linux-administration)
+  - [Get my current user](#get-my-current-user)
   - [The `sudo` command](#the-sudo-command)
-- [Inspect ports](#inspect-ports)
-  - [See listening TCP ports](#see-listening-tcp-ports)
-  - [Inspect a specific port](#inspect-a-specific-port)
-- [Troubleshooting](#troubleshooting)
-  - [Service is running but a request fails](#service-is-running-but-a-request-fails)
+  - [Create a non-root user](#create-a-non-root-user)
+  - [Inspect ports](#inspect-ports)
+    - [See listening TCP ports](#see-listening-tcp-ports)
+    - [Inspect a specific port](#inspect-a-specific-port)
+  - [Troubleshooting](#troubleshooting)
+    - [Service is running but a request fails](#service-is-running-but-a-request-fails)
 
 ## What is `Linux`
 
 `Linux` is a family of [operating systems](./operating-system.md) commonly used for servers and [virtual machines](./vm.md).
 
-## Linux distro
+There are multiple [`Linux` distros](./linux-distros.md#what-is-a-linux-distro).
 
-A `Linux` distro (distribution) is a complete operating system built around the `Linux` kernel, bundled with a package manager, system tools, and default software chosen by its maintainers.
+## User
 
-Different distros make different trade-offs between stability and freshness, ease of use and control, and general-purpose vs. specialized use cases.
+See [User](./operating-system.md#user).
 
-### `Ubuntu`
+## Group
 
-`Ubuntu` is a widely used Debian-based `Linux` distro with long-term support (LTS) releases, commonly chosen for servers, cloud VMs, and developer workstations.
-
-Docs:
-
-- [Ubuntu documentation](https://help.ubuntu.com/)
-
-### `ArchLinux`
-
-`ArchLinux` is a minimal, rolling-release `Linux` distro that gives users full control over what gets installed, with packages updated continuously as new versions are released.
-
-Docs:
-
-- [ArchWiki](https://wiki.archlinux.org/)
-
-### `NixOS`
-
-`NixOS` is a `Linux` distro whose entire system configuration — packages, services, and settings — is declared in a single reproducible configuration file using the `Nix` package manager.
-
-`NixOS` has one of the largest package repositories of any `Linux` distro — see [repository statistics](https://repology.org/repositories/statistics/total).
-
-Docs:
-
-- [NixOS documentation](https://nixos.org/learn/)
-
-### `CachyOS`
-
-`CachyOS` is an `ArchLinux`-based distro focused on performance, shipping with optimized kernels and packages compiled with advanced CPU-specific instruction sets.
-
-Docs:
-
-- [CachyOS documentation](https://wiki.cachyos.org/)
-
-## Groups
-
-A group is a collection of [users](#users) that share the same access permissions to [files](./file-system.md#file) and [directories](./file-system.md#directory).
-
-Groups allow an administrator to manage permissions for multiple users at once: adding a user to a group grants them all the group's permissions.
-
-Each user has a primary group and can belong to additional supplementary groups.
-
-## Users
-
-Servers and VMs usually run multiple users.
+See [Group](./operating-system.md#group).
 
 ### The `root` user
 
-`root` is the administrator user.
+`root` is the administrator [user](#user).
 
 ### A non-root user
 
 <!-- TODO -->
+
+## Permissions
+
+<!-- TODO -->
+
+## `Linux` administration
+
+`Linux` administration covers system-level tasks such as managing [users](./operating-system.md#user), [groups](./operating-system.md#group), and permissions on a [`Linux`](./linux.md#what-is-linux) system.
 
 ### Get my current user
 
@@ -95,6 +57,18 @@ Servers and VMs usually run multiple users.
    ```terminal
    whoami
    ```
+
+### The `sudo` command
+
+`sudo` runs a command with elevated permissions.
+
+To run a command with elevated permissions,
+
+[run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+```terminal
+sudo <command>
+```
 
 ### Create a non-root user
 
@@ -137,28 +111,14 @@ For `Ubuntu`/`Debian` systems:
 
 If you plan to log in via `SSH` as that user, copy `authorized_keys` to the new user's home and fix permissions before logging out from `root`.
 
-## Permissions
-
-### The `sudo` command
-
-`sudo` runs a command with elevated permissions.
-
-To run a command with elevated permissions,
-
-[run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
-
-```terminal
-sudo <command>
-```
-
-## Inspect ports
+### Inspect ports
 
 Use the following commands to inspect [ports](./computer-networks.md#port) on a [host](./computer-networks.md#host).
 
 - [See listening TCP ports](#see-listening-tcp-ports)
 - [Inspect a specific port](#inspect-a-specific-port)
 
-### See listening TCP ports
+#### See listening TCP ports
 
 To see all listening TCP ports,
 
@@ -168,7 +128,7 @@ To see all listening TCP ports,
 ss -ltn
 ```
 
-### Inspect a specific port
+#### Inspect a specific port
 
 To inspect a specific port,
 
@@ -178,9 +138,9 @@ To inspect a specific port,
 ss -ltn 'sport = :42000'
 ```
 
-## Troubleshooting
+### Troubleshooting
 
-### Service is running but a request fails
+#### Service is running but a request fails
 
 Verify both:
 

@@ -1,5 +1,7 @@
 # Browser developer tools
 
+<h2>Table of contents</h2>
+
 - [What are browser developer tools](#what-are-browser-developer-tools)
 - [Open the developer tools](#open-the-developer-tools)
 - [The `Network` tab](#the-network-tab)
@@ -25,7 +27,7 @@ Docs:
 
 See:
 
-- [How to open the devtools in your browser](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Tools_and_setup/What_are_browser_developer_tools#how_to_open_the_devtools_in_your_browser).
+- [How to open the devtools in your browser](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Tools_and_setup/What_are_browser_developer_tools#how_to_open_the_devtools_in_your_browser)
 - [How To Use The Safari Developer Tools](https://www.debugbear.com/blog/safari-developer-tools)
 
 ## The `Network` tab
@@ -61,7 +63,7 @@ Docs:
 Complete these steps:
 
 1. [Open the `Network` tab](#open-the-network-tab) in your browser to track requests.
-2. Make a request in your browser, e.g., using the `Swagger UI`.
+2. Make a request in your browser, e.g., using the [`Swagger UI`](./swagger.md#swagger-ui).
 3. In the `Network` tab, [select the request](#select-the-request).
 4. [Inspect the request headers](#inspect-the-request-headers).
 5. [Inspect the request payload](#inspect-the-request-payload).
@@ -74,11 +76,11 @@ Complete these steps:
 
 1. Click the request row:
 
-    - `Chrome`
+    - `Chrome`:
 
       <img alt="Chrome - select request" src="./images/browser-developer-tools/chrome/select-request.png" style="width:400px"></img>
 
-    - `Firefox`
+    - `Firefox`:
 
       <img alt="Firefox - select request" src="./images/browser-developer-tools/firefox/select-request.png" style="width:400px"></img>
 
@@ -153,7 +155,7 @@ You can:
       1. Click `Copy Value`.
       2. Click `Copy as Fetch`.
 
-    - `Safari`
+    - `Safari`:
 
       1. Click `Copy`.
       2. Click `Copy as Fetch`.
@@ -174,7 +176,7 @@ You can:
       1. Click `Copy Value`.
       2. Click `Copy Response`.
 
-    - `Safari`
+    - `Safari`:
 
       1. Click `Copy`.
       2. Click `Copy Response`.

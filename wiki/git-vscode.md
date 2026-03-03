@@ -143,7 +143,7 @@ Docs:
    ls <repo-name>
    ```
   
-   Replace `<repo-name>`.
+   Replace [`<repo-name>`](./github.md#repo-name).
 
    The output should be the list of names of files in the repo.
 
@@ -188,7 +188,7 @@ Docs:
 
 ## Detect conflicts
 
-It can happen that commits in `<branch>` on `<remote>` are different from commits on the `<branch>` in the cloned repo on your computer.
+It can happen that commits in [`<branch>`](./git.md#branch) on [`<remote>`](./git.md#remote) are different from commits on the `<branch>` in the cloned repo on your computer.
 
 1. Look at the [`Status Bar`](./vs-code.md#status-bar).
 
@@ -352,6 +352,11 @@ For each conflicting file, complete the following steps:
 
 ## Stage using the `Source Control`
 
+<!-- no toc -->
+- Method 1: [Stage all changes in a specific file](#stage-all-changes-in-a-specific-file)
+- Method 2: [Stage all changes in specific files](#stage-all-changes-in-specific-files)
+- Method 3: [Stage specific changes in a specific file](#stage-specific-changes-in-a-specific-file)
+
 ### Stage all changes in a specific file
 
 <!-- TODO click + near the name -->
@@ -439,7 +444,7 @@ For each conflicting file, complete the following steps:
 2. Go to `Changes`.
 3. Hover over a file name.
 4. Click `+` to stage the file.
-5. [Commit staged changes](#commit-staged-changes)
+5. [Commit staged changes](#commit-staged-changes).
 
 #### Commit staged changes
 
@@ -541,7 +546,11 @@ See [Undo commit on the current branch](./gitlens.md#undo-a-commit-on-the-curren
 
 ### Switch to an existing branch using `VS Code Terminal`
 
+<!-- TODO fill in this section -->
+
 ### Switch to an existing branch using `GitLens`
+
+<!-- TODO fill in this section -->
 
 ## Switch to a new branch
 

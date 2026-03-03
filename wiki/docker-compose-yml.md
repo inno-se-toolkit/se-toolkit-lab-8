@@ -15,7 +15,7 @@
 
 [`docker-compose.yml`](../docker-compose.yml) is the [`Docker Compose`](./docker-compose.md#what-is-docker-compose) configuration file for this project. It defines four [services](./docker-compose.md#service) — [`app`](#app-service), [`postgres`](#postgres-service), [`pgadmin`](#pgadmin-service), [`caddy`](#caddy-service) — and one [volume](#volumes).
 
-The services read their configuration from [environment variables](./environments.md#environment-variable) in [`.env.docker.secret`](./dotenv-docker-secret.md#what-is-envdockersecret).
+In this project, the services read their configuration from [environment variables](./environments.md#environment-variable) in [`.env.docker.secret`](./dotenv-docker-secret.md#what-is-envdockersecret).
 
 Docs:
 
@@ -25,9 +25,9 @@ Docs:
 
 ### `app` service
 
-The `app` service runs the [backend](./web-development.md#backend) [web server](./web-development.md#web-server).
+The `app` service runs the [backend web server](./web-development.md#web-server).
 
-It builds from the root [`Dockerfile`](../Dockerfile), which uses a multi-stage build: the first stage installs `Python` dependencies with `uv`, and the second stage runs the application.
+It builds from the root [`Dockerfile`](../Dockerfile), which uses a multi-stage build: the first stage installs [`Python`](./python.md#what-is-python) dependencies with [`uv`](./python.md#uv), and the second stage runs the application.
 
 Configuration in [`docker-compose.yml`](../docker-compose.yml):
 
@@ -53,7 +53,7 @@ Configuration in [`docker-compose.yml`](../docker-compose.yml):
 
 ### `pgadmin` service
 
-The `pgadmin` service runs [`pgAdmin`](./pgadmin.md#what-is-pgadmin), a web interface for managing `PostgreSQL` databases.
+The `pgadmin` service runs [`pgAdmin`](./pgadmin.md#what-is-pgadmin), a web interface for managing [`PostgreSQL`](./database.md#postgresql) databases.
 
 Configuration in [`docker-compose.yml`](../docker-compose.yml):
 
@@ -65,7 +65,7 @@ Configuration in [`docker-compose.yml`](../docker-compose.yml):
 
 ### `caddy` service
 
-The `caddy` service runs [`Caddy`](./caddy.md#what-is-caddy), a [reverse proxy](./computer-networks.md#reverse-proxy) that serves [frontend](./web-development.md#frontend) files and forwards [API](./web-development.md#api) requests to the [`app` service](#app-service).
+The `caddy` service runs [`Caddy`](./caddy.md#what-is-caddy), a [reverse proxy](./computer-networks.md#reverse-proxy) that serves [frontend](./web-development.md#frontend) files and forwards [API](./api.md#what-is-an-api) requests to the [`app` service](#app-service).
 
 It builds from [`frontend/Dockerfile`](../frontend/Dockerfile), which uses a multi-stage build: the first stage builds the frontend with `Node.js`, and the second stage serves the output with `Caddy`.
 

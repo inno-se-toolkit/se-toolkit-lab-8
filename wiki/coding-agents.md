@@ -2,8 +2,6 @@
 
 <h2>Table of contents</h2>
 
-Coding agents let you use LLMs to help you complete your tasks.
-
 - [What is a coding agent](#what-is-a-coding-agent)
 - [Choose a coding agent](#choose-a-coding-agent)
 - [Set up `Qwen Code`-based agent](#set-up-qwen-code-based-agent)
@@ -44,8 +42,8 @@ Complete these steps:
 Set up a coding agent in `VS Code` using any of the following methods:
 
 <!-- no toc -->
-- [Set up `Qwen Code Companion` with `Qwen3-Coder`](#set-up-qwen-code-companion-with-qwen3-coder)
-- [Set up `GitHub Copilot Chat` with `Qwen3-Coder`](#set-up-github-copilot-chat-with-qwen3-coder)
+- Method 1: [Set up `Qwen Code Companion` with `Qwen3-Coder`](#set-up-qwen-code-companion-with-qwen3-coder)
+- Method 2: [Set up `GitHub Copilot Chat` with `Qwen3-Coder`](#set-up-github-copilot-chat-with-qwen3-coder)
 
 #### Set up `Qwen Code Companion` with `Qwen3-Coder`
 

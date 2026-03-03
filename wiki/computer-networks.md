@@ -71,7 +71,7 @@ A host is any [machine](#machine) that:
 - is connected to a [network](#what-is-a-network);
 - has an [IP address](#ip-address).
 
-Hosts can send and receive data over the [network](#what-is-a-network).
+Hosts can send and receive data over the network.
 
 Examples: computers, servers, [virtual machines](./vm.md#what-is-a-vm).
 
@@ -89,7 +89,7 @@ Examples: [`localhost`](#localhost), `my-server`, [`vm.innopolis.university`](./
 
 It resolves to the loopback [IP address](#ip-address) `127.0.0.1`.
 
-Connections to `localhost` never leave the host — they are handled entirely within the [operating system](./operating-system.md).
+Connections to `localhost` never leave the host — they are handled entirely within the [operating system](./operating-system.md#what-is-an-operating-system).
 
 #### `127.0.0.1`
 
@@ -107,7 +107,7 @@ This is commonly used to make a service accessible from outside the [machine](#m
 
 A remote [host](#host) is a host that is not the [local host](#localhost) — it is accessed over a [network](#what-is-a-network).
 
-Example: [your VM](./vm.md#your-vm) you connect to via [`SSH`](./ssh.md) is a remote host.
+Example: [your VM](./vm.md#your-vm) you connect to via [`SSH`](./ssh.md#what-is-ssh) is a remote host.
 
 ## Port
 
@@ -132,11 +132,11 @@ A **user port** (or **registered port**) is a [network port](#port) designated f
 
 ### Listen on a port
 
-When a [process](./operating-system.md#process) "listens on a port", it means the [process](./operating-system.md#process) has bound itself to a specific [network port number](#port-number) and is waiting for incoming network connections on that [port](#port).
+When a [process](./operating-system.md#process) "listens on a port", it means the process has bound itself to a specific [network port number](#port-number) and is waiting for incoming network connections on that [port](#port).
 
 The [operating system](./operating-system.md#what-is-an-operating-system) allocates the port to that process, and any incoming network traffic directed to that port will be handled by the listening process.
 
-This is how [services](./operating-system.md#service) like [web servers](./web-development.md), [`SSH` daemons](./ssh.md#ssh-daemon), or [databases](./database.md#what-is-a-database) accept connections from [clients](./web-development.md#web-client).
+This is how [services](./operating-system.md#service) like [web servers](./web-development.md#web-server), [`SSH` daemons](./ssh.md#ssh-daemon), or [databases](./database.md#what-is-a-database) accept connections from [clients](./web-development.md#web-client).
 
 A port can only be listened on by one process at a time.
 
@@ -150,7 +150,7 @@ It uses radio waves to transmit data between devices and a wireless access point
 
 A `Wi-Fi` network is a [network](#what-is-a-network) that [machines](#machine) connect to using [`Wi-Fi`](#wi-fi).
 
-Each `Wi-Fi` network has a name (called `SSID`) that identifies it to nearby devices.
+Each `Wi-Fi` network has a name (called SSID) that identifies it to nearby devices.
 
 Example: `UniversityStudent`, `Home_Network`.
 
@@ -162,4 +162,4 @@ A reverse proxy is a server that sits in front of a backend [service](./web-deve
 
 ### Forward request
 
-<!-- TODO -->
+<!-- TODO add section content -->

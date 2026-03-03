@@ -6,7 +6,7 @@
 
 <h4>Purpose</h4>
 
-Trace a request from [`Swagger UI`](../../../wiki/swagger.md#what-is-swagger-ui) through the [API](../../../wiki/web-development.md#api) to the [database](../../../wiki/database.md#what-is-a-database) using the [browser developer tools](../../../wiki/browser-developer-tools.md#what-are-browser-developer-tools) and [`pgAdmin`](../../../wiki/pgadmin.md#what-is-pgadmin).
+Trace a request from [`Swagger UI`](../../../wiki/swagger.md#what-is-swagger-ui) through the [API](../../../wiki/api.md#what-is-an-api) to the [database](../../../wiki/database.md#what-is-a-database) using the [browser developer tools](../../../wiki/browser-developer-tools.md#what-are-browser-developer-tools) and [`pgAdmin`](../../../wiki/pgadmin.md#what-is-pgadmin).
 
 <h4>Context</h4>
 
@@ -197,7 +197,7 @@ Title: `[Task] Observe System Component Interaction`
 
 2. [Authorize](../../../wiki/swagger.md#authorize-in-swagger-ui) with [`API_KEY`](../../../wiki/dotenv-docker-secret.md#api_key) from [`.env.docker.secret`](../../../wiki/dotenv-docker-secret.md#what-is-envdockersecret).
 
-   You should see the [`Swagger UI`](../../../wiki/swagger.md#swagger-ui) page with the [API](../../../wiki/web-development.md#api) documentation and available [endpoints](../../../wiki/web-development.md#endpoint).
+   You should see the [`Swagger UI`](../../../wiki/swagger.md#swagger-ui) page with the [API](../../../wiki/api.md#what-is-an-api) documentation and available [endpoints](../../../wiki/api.md#endpoint).
 
    <!-- TODO write troubleshooting in wiki -->
 
@@ -259,7 +259,7 @@ Title: `[Task] Observe System Component Interaction`
 ### 1.7. Verify in `pgAdmin`
 
 > [!NOTE]
-> The [API](../../../wiki/web-development.md#api) transformed the [`JSON`](../../../wiki/file-formats.md#json) from your request into a row in the `learner` table.
+> The [API](../../../wiki/api.md#what-is-an-api) transformed the [`JSON`](../../../wiki/file-formats.md#json) from your request into a row in the `learner` table.
 
 1. [Open `pgAdmin`](../../../wiki/pgadmin.md#open-pgadmin).
 2. [Run a query](../../../wiki/pgadmin.md#run-the-query) on the `learner` table:

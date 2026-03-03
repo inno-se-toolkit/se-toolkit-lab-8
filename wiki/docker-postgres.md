@@ -13,8 +13,8 @@ This wiki covers managing the `PostgreSQL` [container](./docker.md#container) in
 
 See also:
 
-- [`Database`](./database.md) for database concepts.
-- [`Docker Compose`](./docker-compose.md) for general `Docker Compose` commands.
+- [`Database`](./database.md#what-is-a-database) for database concepts.
+- [`Docker Compose`](./docker-compose.md#what-is-docker-compose) for general `Docker Compose` commands.
 
 ## Resetting the database
 

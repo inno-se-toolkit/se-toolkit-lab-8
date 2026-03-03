@@ -360,7 +360,7 @@ If you can't [connect to your VM](../../wiki/vm.md#connect-to-the-vm), complete 
 
 1. [Open `Swagger UI`](../../wiki/swagger.md#open-swagger-ui).
 
-   You should see the [`Swagger UI`](../../wiki/swagger.md#what-is-swagger-ui) page with the [API](../../wiki/web-development.md#api) documentation.
+   You should see the [`Swagger UI`](../../wiki/swagger.md#what-is-swagger-ui) page with the [API](../../wiki/api.md#what-is-an-api) documentation.
 
    <img alt="Swagger UI" src="../images/tasks/setup/swagger-ui.png" style="width:400px"></img>
 

@@ -1,5 +1,7 @@
 # `.env.docker.secret`
 
+<h2>Table of contents</h2>
+
 - [What is `.env.docker.secret`](#what-is-envdockersecret)
 - [`app`](#app)
   - [`APP_NAME`](#app_name)
@@ -40,6 +42,7 @@ The values are substituted into [`docker-compose.yml`](../docker-compose.yml) wh
 
 Default values: [`.env.docker.example`](../.env.docker.example)
 
+> [!NOTE]
 > It was added to [`.gitignore`](./git.md#gitignore) because you may specify there
 > [secrets](./environments.md#secrets) such as the [API key](#api_key) or the [address of your VM](./vm.md#your-vm-ip-address).
 
@@ -107,7 +110,7 @@ Default: `true`
 
 ### `API_KEY`
 
-The secret key used to authorize [API](./web-development.md#api) requests. See [API key authentication](./security.md#api-key-authentication).
+The secret key used to authorize [API](./api.md#what-is-an-api) requests. See [API key authentication](./security.md#api-key-authentication).
 
 Default: `my-secret-api-key`
 
@@ -129,7 +132,7 @@ Default: `postgres`
 
 ### `POSTGRES_PASSWORD`
 
-The password for the `PostgreSQL` database.
+The password for the [`PostgreSQL`](./database.md#postgresql) database.
 
 Default: `postgres`
 
@@ -141,7 +144,7 @@ Default: `127.0.0.1`
 
 ### `POSTGRES_HOST_PORT`
 
-The [port number](./computer-networks.md#port-number) exposed on the [host](./computer-networks.md#host) for accessing `PostgreSQL`.
+The [port number](./computer-networks.md#port-number) exposed on the [host](./computer-networks.md#host) for accessing [`PostgreSQL`](./database.md#postgresql).
 
 Default: `42004`
 
@@ -157,7 +160,7 @@ Default: `admin@example.com`
 
 ### `PGADMIN_PASSWORD`
 
-The password used to log in to `pgAdmin`.
+The password used to log in to [`pgAdmin`](./pgadmin.md#what-is-pgadmin).
 
 Default: `admin`
 
@@ -169,7 +172,7 @@ Default: `0.0.0.0`
 
 ### `PGADMIN_HOST_PORT`
 
-The [port number](./computer-networks.md#port-number) exposed on the [host](./computer-networks.md#host) for accessing `pgAdmin`.
+The [port number](./computer-networks.md#port-number) exposed on the [host](./computer-networks.md#host) for accessing [`pgAdmin`](./pgadmin.md#what-is-pgadmin).
 
 Default: `42003`
 
@@ -191,7 +194,7 @@ Default: `0.0.0.0`
 
 ### `CADDY_HOST_PORT`
 
-The [port number](./computer-networks.md#port-number) exposed on the [host](./computer-networks.md#host) for accessing `Caddy`.
+The [port number](./computer-networks.md#port-number) exposed on the [host](./computer-networks.md#host) for accessing [`Caddy`](./caddy.md#what-is-caddy).
 
 Default: `42002`
 
@@ -207,12 +210,12 @@ Default: `postgres`
 
 ### `CONST_POSTGRESQL_SERVER_NAME`
 
-The display name for the `PostgreSQL` server in [`pgAdmin`](./pgadmin.md#what-is-pgadmin).
+The display name for the [`PostgreSQL`](./database.md#postgresql) server in [`pgAdmin`](./pgadmin.md#what-is-pgadmin).
 
 Default: `postgres-lab-4`
 
 ### `CONST_POSTGRESQL_DEFAULT_PORT`
 
-The default [port number](./computer-networks.md#port-number) `PostgreSQL` [listens on](./computer-networks.md#listen-on-a-port) inside the [container](./docker.md#container).
+The default [port number](./computer-networks.md#port-number) [`PostgreSQL`](./database.md#postgresql) [listens on](./computer-networks.md#listen-on-a-port) inside the [container](./docker.md#container).
 
 Default: `5432`

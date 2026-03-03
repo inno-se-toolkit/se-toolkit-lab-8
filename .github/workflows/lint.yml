@@ -12,8 +12,6 @@ jobs:
       actions: write
     steps:
       - uses: actions/checkout@v6.0.2
-        with:
-          token: ${{ secrets.LAB_TOKEN }}
 
       - uses: cachix/install-nix-action@v31.9.1
 

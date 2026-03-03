@@ -7,6 +7,8 @@
 - [Dynamic analysis](#dynamic-analysis)
 - [Static analysis](#static-analysis)
 - [Boundary value analysis](#boundary-value-analysis)
+- [Unit test](#unit-test)
+- [End-to-end test](#end-to-end-test)
 
 ## What is testing
 
@@ -47,3 +49,15 @@ Examples:
 ## Boundary value analysis
 
 <!-- TODO -->
+
+## Unit test
+
+<!-- TODO -->
+
+End-to-end (E2E) tests
+
+## End-to-end test
+
+<!-- TODO -->
+
+End-to-end (E2E) tests are ...

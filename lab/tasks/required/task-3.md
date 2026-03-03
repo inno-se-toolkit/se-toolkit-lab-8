@@ -69,6 +69,8 @@ Title: `[Task] Add Front-end`
 
 3. Configure the environment. Complete these steps:
 
+   <!-- TODO copy via cp -->
+
    1. Open the file [`frontend/.env.example`](../../../frontend/.env.example) ([how to open a file](../../../wiki/vs-code.md#open-the-file)).
    2. Copy it to `frontend/.env`.
    3. Set `VITE_API_TARGET` to the URL of your back-end API, for example `http://<your-vm-ip-address>:<caddy-port>`.
@@ -85,6 +87,8 @@ Title: `[Task] Add Front-end`
    ```terminal
    npm install
    ```
+
+   <!-- TODO install dependencies in setup -->
 
 5. To start the dev server,
 

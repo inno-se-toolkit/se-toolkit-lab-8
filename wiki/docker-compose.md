@@ -3,6 +3,7 @@
 <h2>Table of contents</h2>
 
 - [What is `Docker Compose`](#what-is-docker-compose)
+- [`docker-compose.yml`](#docker-composeyml)
 - [Service](#service)
   - [Service name](#service-name)
 - [`Docker Compose` networking](#docker-compose-networking)
@@ -11,11 +12,11 @@
 - [Actions](#actions)
   - [Stop and remove all containers](#stop-and-remove-all-containers)
   - [Stop and remove all containers and volumes](#stop-and-remove-all-containers-and-volumes)
-- [Stop and remove all containers, volumes, and images](#stop-and-remove-all-containers-volumes-and-images)
+  - [Stop and remove all containers, volumes, and images](#stop-and-remove-all-containers-volumes-and-images)
 
 ## What is `Docker Compose`
 
-`Docker Compose` runs multi-container apps from a `docker-compose.yml` file.
+`Docker Compose` runs multi-container apps from a [`docker-compose.yml`](#docker-composeyml) file.
 
 Example of the file: [`docker-compose.yml`](../docker-compose.yml).
 
@@ -23,9 +24,11 @@ See also:
 
 - [`Docker`](./docker.md) for general `Docker` concepts ([images](./docker.md#image), [containers](./docker.md#container), etc.).
 
+## `docker-compose.yml`
+
 ## Service
 
-A service is a named entry under the `services:` key in `docker-compose.yml`. It defines how to build or pull an [image](./docker.md#image) and run it as a [container](./docker.md#container).
+A service is a named entry under the `services:` key in [`docker-compose.yml`](#docker-composeyml). It defines how to build or pull an [image](./docker.md#image) and run it as a [container](./docker.md#container).
 
 For example, this project defines four services in [`docker-compose.yml`](../docker-compose.yml): `app`, `postgres`, `pgadmin`, and `caddy`.
 
@@ -45,7 +48,7 @@ Docs:
 
 A volume is persistent storage managed by `Docker`. Data in a volume survives [container](./docker.md#container) restarts.
 
-Volumes are defined in `docker-compose.yml`:
+Volumes are defined in [`docker-compose.yml`](#docker-composeyml):
 
 ```yaml
 volumes:
@@ -106,7 +109,7 @@ services:
    docker compose --env-file .env.docker.secret down -v
    ```
 
-## Stop and remove all containers, volumes, and images
+### Stop and remove all containers, volumes, and images
 
 1. To stop all running [services](#service), remove [containers](./docker.md#container), remove [volumes](#volume), and remove [images](./docker.md#image),
 

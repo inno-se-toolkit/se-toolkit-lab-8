@@ -18,6 +18,8 @@ Review a single file for violations of the lab authoring conventions. The file m
      - `instructors/context/conventions/common.md` — writing conventions (4.1–4.23)
      - `instructors/context/conventions/wiki.md` — wiki file structure and section patterns
 4. Go through the target file **line by line**. Check it against **every** convention in both files. Flag each violation with its line number.
+5. Scan for `<!-- TODO ... -->` comments. Report each one with its line number and the comment text.
+6. Scan for empty sections: a heading immediately followed by another heading, a `<!-- TODO ... -->` comment, or end of file, with no real content lines in between. Report each empty section with its line number and heading text.
 
 ## Rules
 
@@ -36,6 +38,8 @@ The report must be self-contained so another session or agent can act on it with
 
 1. **Header** — file path reviewed, date, convention files used.
 2. **Findings** — grouped by convention number (e.g., "4.2. Terminal commands", "Section 3. Task document structure"). Under each group, list findings as numbered items with line numbers. If a group has no findings, write "No issues found."
-3. **Summary** — total violation count and a short overall assessment.
+3. **TODOs** — list every `<!-- TODO ... -->` comment with its line number and text. If none, write "No TODOs found."
+4. **Empty sections** — list every heading that has no content (only a TODO comment, another heading, or EOF follows). Include line number and heading text. If none, write "No empty sections found."
+5. **Summary** — total violation count (conventions + TODOs + empty sections) and a short overall assessment.
 
 After writing the file, print its path in the conversation so the user can find it.

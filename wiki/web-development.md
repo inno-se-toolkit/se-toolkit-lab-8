@@ -13,11 +13,6 @@
     - [`JSON` data types](#json-data-types)
     - [Example of `JSON` data](#example-of-json-data)
   - [`Protobuf`](#protobuf)
-- [REST API](#rest-api)
-- [API](#api)
-  - [What is API key](#what-is-api-key)
-  - [`<api-key>`](#api-key)
-- [Endpoint](#endpoint)
 - [Send a `GET` request](#send-a-get-request)
   - [Send a `GET` request using a browser](#send-a-get-request-using-a-browser)
   - [Send a `GET` request using `curl`](#send-a-get-request-using-curl)
@@ -96,61 +91,6 @@ See [Learn `JSON` in Y minutes](https://learnxinyminutes.com/json/).
 `Protobuf` (`Protocol Buffers`) is a binary serialization format developed by `Google` for structured data exchange between applications. It's a language-neutral, platform-neutral mechanism for serializing structured data, similar to `XML` or `JSON` but more compact and faster.
 
 `Protobuf` uses `.proto` files to define data structures, which are then compiled into language-specific classes for various programming languages. It's commonly used in microservices architectures and API communications where efficiency and schema evolution are important.
-
-## REST API
-
-A REST API (`Representational State Transfer`) is a style of API design that uses `HTTP` methods and noun-based resource paths.
-
-Key principles:
-
-- **Resources** are identified by paths: `/items`, `/learners`, `/interactions`.
-- **`HTTP` methods** define the action:
-  - `GET` — read a resource.
-  - `POST` — create a new resource.
-  - `PUT` — update an existing resource.
-  - `DELETE` — remove a resource.
-- **Status codes** indicate the result: `200`, `201`, `404`, etc.
-
-Example:
-
-| Action               | Method | Path           | Status code |
-| -------------------- | ------ | -------------- | ----------- |
-| List all items       | `GET`  | `/items`       | `200`       |
-| Get one item         | `GET`  | `/items/{id}`  | `200`/`404` |
-| Create an item       | `POST` | `/items`       | `201`       |
-| Update an item       | `PUT`  | `/items/{id}`  | `200`/`404` |
-
-## API
-
-<!-- TODO move to separate doc -->
-
-An API (`Application Programming Interface`) is a set of rules that lets programs communicate with each other.
-
-A web API exposes [endpoints](#endpoint) that clients can call over `HTTP`.
-
-Docs:
-
-- [An introduction to APIs: A comprehensive guide](https://zapier.com/blog/api/)
-
-### What is API key
-
-<!-- TODO -->
-
-### `<api-key>`
-
-The value that you use to authenticate in the API.
-
-## Endpoint
-
-An endpoint is a specific [API](#api) entry point identified by:
-
-- HTTP method (`GET`, `POST`, `PUT`, `DELETE`, ...).
-- Path (`/status`, `/items`, ...).
-
-Example:
-
-- `GET /status` is one endpoint.
-- `POST /status` is a different endpoint.
 
 ## Send a `GET` request
 
