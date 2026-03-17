@@ -16,6 +16,8 @@
 - [Go to the VM page](#go-to-the-vm-page)
 - [Get the IP address of the VM](#get-the-ip-address-of-the-vm)
 - [Delete the VM](#delete-the-vm)
+- [Troubleshooting](#troubleshooting)
+  - [VM takes too long to start](#vm-takes-too-long-to-start)
 
 ## What is a VM
 
@@ -155,3 +157,32 @@ Complete these steps:
 
 1. [Go to the VM page](#go-to-the-vm-page).
 2. Click `DELETE`.
+
+## Troubleshooting
+
+Cases:
+
+- [VM takes too long to start](#vm-takes-too-long-to-start)
+
+### VM takes too long to start
+
+1. [Go to the VM page](./vm.md#go-to-the-vm-page).
+
+2. Go to the `quick glance` sidebar.
+
+3. You should see:
+
+   ```terminal
+   Status
+   Running
+   ```
+
+4. Otherwise:
+
+   Option 1: Wait for the status to change.
+
+   Option 2: If the status doesn't change for more than 20 minutes:
+
+     1. To stop the VM, click `STOP`.
+
+     2. To delete the VM, click `DELETE`.
