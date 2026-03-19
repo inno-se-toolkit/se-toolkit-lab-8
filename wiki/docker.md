@@ -261,19 +261,38 @@ This is a university network DNS issue.
 
 Steps to fix:
 
-1. To add `Google` DNS to `Docker`,
+1. To create the docker daemon directory if it doesn't exist,
 
    [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
 
    ```terminal
-   sudo tee /etc/docker/daemon.json <<'EOF'
-   {
-     "dns": ["8.8.8.8", "8.8.4.4"]
-   }
-   EOF
+   sudo mkdir -p /etc/docker/
    ```
+  
+2. To add `Google` DNS to `Docker`:
 
-2. To restart the `docker` service,
+   1. [Run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+      ```terminal
+      echo '{"dns": ["8.8.8.8", "8.8.4.4"]}' \
+      | jq . \
+      | sudo tee /etc/docker/daemon.json
+      ```
+
+      The output should look like this:
+
+      ```json
+      {
+        "dns": [
+          "8.8.8.8",
+          "8.8.4.4"
+        ]
+      }
+      ```
+
+   2. [Type the password for the user `<user>`](./vm-access.md#type-the-password-for-the-user-user-remote).
+
+3. To restart the `docker` service,
 
    [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
 
