@@ -78,8 +78,8 @@ function App() {
   if (!token) {
     return (
       <form className="token-form" onSubmit={handleConnect}>
-        <h1>API Key</h1>
-        <p>Enter your API key to connect.</p>
+        <h1>LMS API Key</h1>
+        <p>Enter your LMS API key to connect.</p>
         <input
           type="password"
           placeholder="Token"
