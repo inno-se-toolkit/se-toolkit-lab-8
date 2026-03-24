@@ -1,7 +1,7 @@
 [project]
-name = "nanobot-lms-gateway"
+name = "lms-nanobot"
 version = "1.0.0"
-description = "Nanobot AI assistant gateway for LMS with webchat channel plugin"
+description = "Nanobot AI assistant for the LMS with webchat and LMS MCP tools"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
