@@ -56,7 +56,10 @@ It uses standardized communication protocols (such as `TCP/IP`) to link billions
 
 A protocol is a set of rules that define how data is transmitted and received over a [network](#what-is-a-network). Protocols govern communication between [machines](#machine).
 
-Example: [`HTTP`](./http.md#what-is-http) is the protocol used for communication between [web servers](./web-infrastructure.md#web-server) and [web clients](./web-infrastructure.md#web-client).
+Examples:
+
+- [`HTTP`](./http.md#what-is-http) is the protocol used for communication between [web servers](./web-infrastructure.md#web-server) and [web clients](./web-infrastructure.md#web-client).
+- [`WebSocket`](./websocket.md#what-is-websocket) is the protocol used for two-way communication over a single, long-lived connection.
 
 ## Host
 

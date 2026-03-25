@@ -44,12 +44,12 @@ The connection stays open until either side closes it.
 
 ## `WebSocket` vs `HTTP`
 
-| | [`HTTP`](./http.md#what-is-http) | `WebSocket` |
-|---|---|---|
-| Direction | Client → Server only | Both directions |
-| Connection | One request, one response, then closed | Long-lived, stays open |
-| Initiated by | Client | Client opens; then either side sends |
-| Use case | [REST APIs](./rest-api.md#what-is-a-rest-api), page loads | Chat, live updates, streaming |
+|              | [`HTTP`](./http.md#what-is-http)                          | `WebSocket`                          |
+| ------------ | --------------------------------------------------------- | ------------------------------------ |
+| Direction    | Client → Server only                                      | Both directions                      |
+| Connection   | One request, one response, then closed                    | Long-lived, stays open               |
+| Initiated by | Client                                                    | Client opens; then either side sends |
+| Use case     | [REST APIs](./rest-api.md#what-is-a-rest-api), page loads | Chat, live updates, streaming        |
 
 ## `WebSocket` URL
 
