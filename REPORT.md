@@ -128,44 +128,85 @@ Just say something like:
 
 ## Task 2A — Deployed agent
 
-operator@se-toolkit008:~/se-toolkit-lab-8$ docker compose --env-file .env.docker.secret ps nanobot
-NAME                         IMAGE                      COMMAND                  SERVICE   CREATED         STATUS         PORTS
-se-toolkit-lab-8-nanobot-1   se-toolkit-lab-8-nanobot   "python /app/nanobot…"   nanobot   8 minutes ago   Up 8 minutes
-operator@se-toolkit008:~/se-toolkit-lab-8$ docker compose --env-file .env.docker.secret logs nanobot --tail 20
-nanobot-1  | 2026-03-27 13:11:22.052 | DEBUG    | nanobot.agent.memory:maybe_consolidate_by_tokens:314 - Token consolidation idle webchat:1811fc3c-98d1-447c-a955-a1d96e11189c: 4793/65536 via tiktoken
-nanobot-1  | 2026-03-27 13:11:22.052 | WARNING  | nanobot_webchat.channel:send:94 - WebChat: no connection for chat_id=1811fc3c-98d1-447c-a955-a1d96e11189c
-nanobot-1  | 2026-03-27 13:12:33.562 | INFO     | nanobot_webchat.channel:_handle_ws:120 - WebChat: new connection chat_id=e9762587-f951-4df9-b378-38f8b784026c
-nanobot-1  | 2026-03-27 13:12:33.563 | INFO     | nanobot.agent.loop:_process_message:385 - Processing message from webchat:e9762587-f951-4df9-b378-38f8b784026c: What labs are available?
-nanobot-1  | 2026-03-27 13:12:41.877 | INFO     | nanobot.agent.loop:_run_agent_loop:227 - Tool call: mcp_lms_lms_labs({})
-nanobot-1  | 2026-03-27 13:12:46.158 | INFO     | nanobot.agent.loop:_process_message:452 - Response to webchat:e9762587-f951-4df9-b378-38f8b784026c: Here are the available labs:
-nanobot-1  |
-nanobot-1  | 1. **Lab 01** – Products, Architecture & Roles
-nanobot-1  | 2. **Lab 02** — Run, Fix, and Deploy a Back...
-nanobot-1  | 2026-03-27 13:12:46.175 | DEBUG    | nanobot.agent.memory:maybe_consolidate_by_tokens:314 - Token consolidation idle webchat:e9762587-f951-4df9-b378-38f8b784026c: 4777/65536 via tiktoken
-nanobot-1  | 2026-03-27 13:12:46.177 | INFO     | nanobot_webchat.channel:_handle_ws:147 - WebChat: disconnected chat_id=e9762587-f951-4df9-b378-38f8b784026c
-nanobot-1  | 2026-03-27 13:12:55.843 | INFO     | nanobot_webchat.channel:_handle_ws:120 - WebChat: new connection chat_id=ea76c400-b8c5-43c4-a8ae-786c20014bed
-nanobot-1  | 2026-03-27 13:12:55.844 | INFO     | nanobot.agent.loop:_process_message:385 - Processing message from webchat:ea76c400-b8c5-43c4-a8ae-786c20014bed: What can you do?
-nanobot-1  | 2026-03-27 13:13:09.807 | INFO     | nanobot.agent.loop:_process_message:452 - Response to webchat:ea76c400-b8c5-43c4-a8ae-786c20014bed: Hi! I'm nanobot 🐈, your AI assistant. Here's what I can help you with:
-nanobot-1  |
-nanobot-1  | ## Core Capabilities
-nanobot-1  |
-nanobot-1  | **📁 File & System Operatio...
-nanobot-1  | 2026-03-27 13:13:09.831 | DEBUG    | nanobot.agent.memory:maybe_consolidate_by_tokens:314 - Token consolidation idle webchat:ea76c400-b8c5-43c4-a8ae-786c20014bed: 4592/65536 via tiktoken
-nanobot-1  | 2026-03-27 13:13:09.834 | INFO     | nanobot_webchat.channel:_handle_ws:147 - WebChat: disconnected chat_id=ea76c400-b8c5-43c4-a8ae-786c20014bed
-operator@se-toolkit008:~/se-toolkit-lab-8$ docker exec se-toolkit-lab-8-nanobot-1 /app/.venv/bin/python -c "
-> import asyncio, websockets, json
-> async def test():
->     async with websockets.connect(
->         'ws://localhost:8765?access_key=my-secret-nanobot-key') as ws:
->         await ws.send(json.dumps({'content': 'What labs are available?'}))
->         print(await asyncio.wait_for(ws.recv(), timeout=30))
-> asyncio.run(test())
-> "
-{"type":"text","content":"Here are the available labs:\n\n1. **Lab 01** – Products, Architecture & Roles\n2. **Lab 02** — Run, Fix, and Deploy a Backend Service\n3. **Lab 03** — Backend API: Explore, Debug, Implement, Deploy\n4. **Lab 04** — Testing, Front-end, and AI Agents\n5. **Lab 05** — Data Pipeline and Analytics Dashboard\n6. **Lab 06** — Build Your Own Agent\n7. **Lab 07** — Build a Client with an AI Coding Agent\n8. **Lab 08** — lab-08\n\nWould you like more details about any specific lab, such as pass rates, completion rates, or submission timelines?","format":"markdown"}
+```
+nanobot-1  | 2026-03-27 13:05:29.665 | INFO     | nanobot.channels.manager:_init_channels:54 - WebChat channel enabled
+nanobot-1  | ✓ Channels enabled: webchat
+nanobot-1  | 2026-03-27 13:05:30.605 | INFO     | nanobot_webchat.channel:start:72 - WebChat starting on 0.0.0.0:8765
+nanobot-1  | 2026-03-27 13:05:32.412 | INFO     | nanobot.agent.tools.mcp:connect_mcp_servers:182 - MCP server 'lms': connected, 9 tools registered
+nanobot-1  | 2026-03-27 13:05:32.412 | INFO     | nanobot.agent.loop:run:260 - Agent loop started
+```
 
 ## Task 2B — Web client
 
-<!-- Screenshot of a conversation with the agent in the Flutter web app -->
+**Flutter client accessible at:** `http://<your-vm-ip>:42002/flutter/`
+
+**Login with:** `NANOBOT_ACCESS_KEY` (set in `.env.docker.secret`)
+
+**Test conversation:**
+
+```
+Q: "What can you do in this system?"
+
+A: I'm nanobot 🐈, your AI assistant. Here's what I can do in this system:
+
+## Core Capabilities
+
+### 📁 File & Workspace Operations
+- Read, write, and edit files
+- List directory contents (including recursive exploration)
+- Execute shell commands (with safety limits)
+
+### 🌐 Web & Information
+- Search the web for information
+- Fetch and extract content from URLs
+
+### ⏰ Scheduling & Reminders
+- Create one-time or recurring reminders
+- Manage scheduled tasks via cron
+
+### 🤝 Communication
+- Send messages to specific channels (Telegram, Discord, etc.)
+- Spawn subagents for complex or long-running tasks
+
+### 🧠 Memory System
+- Store important facts in long-term memory (MEMORY.md)
+- Log events in a searchable history (HISTORY.md)
+
+## Available Skills
+
+| Skill | Description |
+|-------|-------------|
+| **memory** | Two-layer memory with grep-based recall |
+| **lms** | Learning Management System integration |
+| **clawhub** | Search/install skills from public registry |
+| **skill-creator** | Create or update custom skills |
+| **cron** | Schedule reminders and recurring tasks |
+
+## LMS Integration
+
+I can access a Learning Management System to:
+- List labs and learners
+- Check pass rates, completion rates, and timelines
+- View group performance and top learners
+- Trigger sync pipelines
+```
+
+**WebSocket test:**
+```bash
+docker exec se-toolkit-lab-8-nanobot-1 /app/.venv/bin/python -c "
+import asyncio, websockets, json
+async def test():
+    async with websockets.connect('ws://caddy:80/ws/chat?access_key=my-secret-nanobot-key') as ws:
+        await ws.send(json.dumps({'content': 'What labs are available?'}))
+        print(await asyncio.wait_for(ws.recv(), timeout=30))
+asyncio.run(test())
+"
+```
+
+Response:
+```json
+{"type":"text","content":"Here are the available labs:\n\n1. **Lab 01** – Products, Architecture & Roles\n2. **Lab 02** — Run, Fix, and Deploy a Backend Service\n...","format":"markdown"}
+```
 
 ## Task 3A — Structured logging
 
