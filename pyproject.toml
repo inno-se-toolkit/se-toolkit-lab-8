@@ -1,8 +1,15 @@
 [tool.uv.workspace]
-members = ["backend", "mcp", "qwen-code-api"]
+members = [
+    "backend",
+    "mcp",
+    "qwen-code-api",
+    "nanobot",
+    "nanobot-websocket-channel",
+]
 
 [tool.uv.sources]
 lms-mcp = { workspace = true }
+nanobot-webchat = { workspace = true }
 
 [dependency-groups]
 dev = [

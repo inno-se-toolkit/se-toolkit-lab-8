@@ -38,6 +38,29 @@ class _TopLearnersQuery(_LabQuery):
     )
 
 
+class _LogsSearchQuery(BaseModel):
+    query: str = Field(default="", description="Keyword or LogsQL fragment to search for.")
+    service: str = Field(default="backend", description="Service name to filter by, e.g. backend.")
+    level: str = Field(default="", description="Optional log level, e.g. error.")
+    minutes: int = Field(default=60, ge=1, le=1440, description="Look back this many minutes.")
+    limit: int = Field(default=20, ge=1, le=200, description="Maximum number of log entries.")
+
+
+class _ErrorCountQuery(BaseModel):
+    service: str = Field(default="", description="Optional service name filter.")
+    minutes: int = Field(default=60, ge=1, le=1440, description="Look back this many minutes.")
+
+
+class _TracesListQuery(BaseModel):
+    service: str = Field(default="backend", description="Service name to inspect.")
+    minutes: int = Field(default=60, ge=1, le=1440, description="Look back this many minutes.")
+    limit: int = Field(default=10, ge=1, le=50, description="Maximum number of traces.")
+
+
+class _TraceGetQuery(BaseModel):
+    trace_id: str = Field(description="Exact trace ID to fetch.")
+
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -112,6 +135,30 @@ async def _sync_pipeline(_args: _NoArgs) -> list[TextContent]:
     return _text(await _client().sync_pipeline())
 
 
+async def _logs_search(args: _LogsSearchQuery) -> list[TextContent]:
+    return _text(
+        await _client().logs_search(
+            query=args.query,
+            service=args.service,
+            level=args.level,
+            minutes=args.minutes,
+            limit=args.limit,
+        )
+    )
+
+
+async def _logs_error_count(args: _ErrorCountQuery) -> list[TextContent]:
+    return _text(await _client().logs_error_count(minutes=args.minutes, service=args.service))
+
+
+async def _traces_list(args: _TracesListQuery) -> list[TextContent]:
+    return _text(await _client().traces_list(service=args.service, minutes=args.minutes, limit=args.limit))
+
+
+async def _traces_get(args: _TraceGetQuery) -> list[TextContent]:
+    return _text(await _client().traces_get(trace_id=args.trace_id))
+
+
 # ---------------------------------------------------------------------------
 # Registry: tool name -> (input model, handler, Tool definition)
 # ---------------------------------------------------------------------------
@@ -183,6 +230,30 @@ _register(
     "Trigger the LMS sync pipeline. May take a moment.",
     _NoArgs,
     _sync_pipeline,
+)
+_register(
+    "logs_search",
+    "Search recent logs in VictoriaLogs by service, level, keyword, and time window.",
+    _LogsSearchQuery,
+    _logs_search,
+)
+_register(
+    "logs_error_count",
+    "Count recent error logs per service over a time window.",
+    _ErrorCountQuery,
+    _logs_error_count,
+)
+_register(
+    "traces_list",
+    "List recent traces for a service from VictoriaTraces.",
+    _TracesListQuery,
+    _traces_list,
+)
+_register(
+    "traces_get",
+    "Fetch the full span list for a single trace ID from VictoriaTraces.",
+    _TraceGetQuery,
+    _traces_get,
 )
 
 

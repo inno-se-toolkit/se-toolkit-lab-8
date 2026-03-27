@@ -1,0 +1,60 @@
+{
+  "agents": {
+    "defaults": {
+      "workspace": "./workspace",
+      "model": "coder-model",
+      "provider": "custom",
+      "maxTokens": 4096,
+      "contextWindowTokens": 32768,
+      "temperature": 0.1,
+      "maxToolIterations": 24
+    }
+  },
+  "channels": {
+    "sendProgress": true,
+    "sendToolHints": false,
+    "webchat": {
+      "enabled": true,
+      "host": "0.0.0.0",
+      "port": 8765,
+      "allowFrom": [
+        "*"
+      ]
+    }
+  },
+  "providers": {
+    "custom": {
+      "apiKey": "",
+      "apiBase": "http://localhost:42005/v1"
+    }
+  },
+  "gateway": {
+    "host": "0.0.0.0",
+    "port": 18790,
+    "heartbeat": {
+      "enabled": true,
+      "intervalS": 900
+    }
+  },
+  "tools": {
+    "restrictToWorkspace": false,
+    "exec": {
+      "timeout": 60,
+      "pathAppend": ""
+    },
+    "mcpServers": {
+      "lms": {
+        "type": "stdio",
+        "command": "python",
+        "args": [
+          "-m",
+          "mcp_lms"
+        ],
+        "toolTimeout": 30,
+        "enabledTools": [
+          "*"
+        ]
+      }
+    }
+  }
+}
