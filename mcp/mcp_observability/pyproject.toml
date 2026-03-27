@@ -1,0 +1,20 @@
+[project]
+name = "mcp-observability"
+version = "1.0.0"
+description = "MCP server for VictoriaLogs and VictoriaTraces observability tools"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "mcp>=1.0.0",
+    "pydantic>=2.0.0",
+    "httpx>=0.25.0",
+]
+
+[project.scripts]
+mcp-observability = "mcp_observability.server:main"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+]

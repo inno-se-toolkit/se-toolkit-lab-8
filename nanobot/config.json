@@ -1,0 +1,45 @@
+{
+  "agents": {
+    "defaults": {
+      "workspace": "./workspace",
+      "model": "coder-model",
+      "provider": "custom",
+      "maxTokens": 8192,
+      "contextWindowTokens": 65536,
+      "temperature": 0.1,
+      "maxToolIterations": 40
+    }
+  },
+  "providers": {
+    "custom": {
+      "apiKey": "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",
+      "apiBase": "http://localhost:42005/v1"
+    }
+  },
+  "channels": {
+    "webchat": {
+      "enabled": true,
+      "allow_from": ["*"]
+    }
+  },
+  "tools": {
+    "mcpServers": {
+      "lms": {
+        "command": "python",
+        "args": ["-m", "mcp_lms"],
+        "env": {
+          "NANOBOT_LMS_BACKEND_URL": "http://localhost:42002",
+          "NANOBOT_LMS_API_KEY": "my-secret-api-key"
+        }
+      },
+      "observability": {
+        "command": "python",
+        "args": ["-m", "mcp_observability"],
+        "env": {
+          "VICTORIALOGS_URL": "http://localhost:9428",
+          "VICTORIATRACES_URL": "http://localhost:10428"
+        }
+      }
+    }
+  }
+}
