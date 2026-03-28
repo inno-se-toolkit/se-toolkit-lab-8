@@ -99,11 +99,29 @@ The skill prompt teaches the agent to:
 
 ## Task 2A — Deployed agent
 
-<!-- Paste a short nanobot startup log excerpt showing the gateway started inside Docker -->
+Nanobot gateway startup log excerpt:
+
+```
+nanobot-1  | Using config: /tmp/nanobot/config.resolved.json
+nanobot-1  | 🐈 Starting nanobot gateway version 0.1.4.post5 on port 18790...
+nanobot-1  | ✓ Channels enabled: webchat
+nanobot-1  | ✓ Heartbeat: every 1800s
+nanobot-1  | MCP server 'lms': connected, 9 tools registered
+nanobot-1  | MCP server 'webchat': connected, 1 tools registered
+```
 
 ## Task 2B — Web client
 
-<!-- Screenshot of a conversation with the agent in the Flutter web app -->
+WebSocket test response:
+
+```json
+{
+  "type": "text",
+  "content": "Here are the available labs in the LMS:\n\n| ID | Title |\n|----|-------|\n| 1 | Lab 01 – Products, Architecture & Roles |\n| 2 | Lab 02 — Run, Fix, and Deploy a Backend Service |\n| 3 | Lab 03 — Backend API: Explore, Debug, Implement, Deploy |\n| 4 | Lab 04 — Testing, Front-end, and AI Agents |\n| 5 | Lab 05 – Data Pipeline and Analytics Dashboard |\n| 6 | Lab 06 — Build Your Own Agent |\n| 7 | Lab 07 — Build a Client with an AI Coding Agent |\n| 8 | lab-08 |\n\nWould..."
+}
+```
+
+The Flutter web client is accessible at `http://localhost:42002/flutter`. Users can log in with `NANOBOT_ACCESS_KEY` and chat with the agent. The agent responds with real LMS backend data via MCP tools.
 
 ## Task 3A — Structured logging
 
