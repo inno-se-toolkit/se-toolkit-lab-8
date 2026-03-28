@@ -171,6 +171,11 @@ The agent still can't access logs or traces — only you can, through the UIs. L
    - If you find a trace ID in the logs, fetch the full trace
    - Summarize findings concisely — don't dump raw JSON
 
+   The repo-local workspace already includes a shared `structured-ui` skill for
+   generic choice/confirm/composite behavior on supported chat channels. Keep
+   your observability skill focused on observability reasoning rather than
+   duplicating that generic UI guidance.
+
 4. Redeploy and test. Ask the agent: **"Any errors in the last hour?"**
 
    Good files to expect by the end of Part C:

@@ -211,6 +211,12 @@ The agent works, but it could be smarter about *how* it uses tools. A **skill pr
 
 1. Write a skill prompt in your repo-local nanobot workspace, for example at `nanobot/workspace/skills/lms/SKILL.md`.
 
+   The repo-local workspace already includes a shared `structured-ui` skill for
+   generic choice/confirm/composite behavior on supported chat channels. Your
+   job here is to create the **LMS-specific** skill. Do not copy generic UI
+   rules into the LMS skill unless you are adding LMS-specific details such as
+   which options to show and which values to pass back.
+
    Start it with frontmatter so nanobot loads it reliably:
 
    ```md
@@ -224,7 +230,7 @@ The agent works, but it could be smarter about *how* it uses tools. A **skill pr
    The skill should teach the agent:
    - Which `lms_*` tools are available and when to use each one
    - When a lab parameter is needed and not provided, ask the user which lab
-   - If an interactive UI tool is available later, prefer a structured lab-choice reply instead of a plain follow-up question
+   - When lab choice is needed, call `lms_labs` first and provide good lab labels/values for the shared UI layer
    - Format numeric results nicely (percentages, counts)
    - Keep responses concise
    - When the user asks "what can you do?", explain its current tools and limits clearly
@@ -233,8 +239,8 @@ The agent works, but it could be smarter about *how* it uses tools. A **skill pr
 
    - if the user asks for scores, pass rates, completion, groups, timeline, or top learners without naming a lab, call `lms_labs` first
    - if multiple labs are available, ask the user to choose one
-   - when a structured UI delivery tool is available, prefer a `choice` response over plain text
-   - otherwise, fall back to a normal text question such as "Which lab do you mean?"
+   - use each lab title as the default user-facing label unless the tool output gives a better identifier
+   - let the shared `structured-ui` skill decide how to present that choice on supported channels
 
    > **Hint:** Look at the tools in `mcp/mcp-lms/src/mcp_lms/server.py` to see what's available and what parameters each tool needs.
 
@@ -266,5 +272,5 @@ The agent works, but it could be smarter about *how* it uses tools. A **skill pr
 - Nanobot is installed in the repo-local `nanobot/` project from either the `main` archive or a pinned commit archive, and configured via `nanobot onboard`.
 - The agent responds to general questions via the repo-local `nanobot/config.json`.
 - MCP tools are configured and the agent returns real backend data.
-- A skill prompt exists that guides the agent's tool usage, including asking for missing lab context and preferring structured choices when supported later.
+- The provided shared `structured-ui` skill remains generic, while a student-written LMS skill guides LMS-specific tool usage and missing-lab handling.
 - `REPORT.md` contains responses from all three checkpoints.

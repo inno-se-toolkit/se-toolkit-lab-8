@@ -153,6 +153,10 @@ All of these pieces are in a single repository. The webchat stack handles:
 
 > [!NOTE]
 > Keep the client generic. Buttons/chips are optional. A clear welcome message and a good first prompt are more important than fancy UI.
+>
+> The repo-local workspace already includes a shared `structured-ui` skill.
+> Your work in this task is to wire `mcp-webchat` correctly and make sure your
+> student-written LMS skill cooperates with that shared UI layer.
 
 ### What to do in Part B
 
@@ -206,19 +210,18 @@ All of these pieces are in a single repository. The webchat stack handles:
     }
    ```
 
-   Also make sure your agent instructions or skill prompt teach the agent to use the webchat MCP tool when an interactive reply is better than plain text. For example:
+   The shared `structured-ui` skill should handle the generic UI behavior.
+   Your LMS skill should still cooperate with it by doing the LMS-specific part:
 
-   - use `mcp_webchat_ui_message` for a lab picker when the user asks "Show me the scores" without naming a lab
-   - use `type: "choice"` for multiple options
-   - use `type: "confirm"` for confirmations
-   - use `type: "composite"` when you want explanatory text plus buttons
-   - on channels that do not support this tool, fall back to normal text
+   - call `lms_labs` when the user needs to choose a lab
+   - provide short, readable lab labels
+   - provide stable lab values that can be reused in the follow-up tool call
 
    By the end of Part B, you should have modified at least:
 
    - `nanobot/config.json`
    - `nanobot/entrypoint.py`
-   - `nanobot/workspace/skills/lms/SKILL.md` or `nanobot/workspace/AGENTS.md`
+   - `nanobot/workspace/skills/lms/SKILL.md`
    - `caddy/Caddyfile`
    - `docker-compose.yml`
 
@@ -357,5 +360,5 @@ All of these pieces are in a single repository. The webchat stack handles:
 - The webchat channel plugin is installed and the Flutter client connects through it.
 - The `mcp-webchat` MCP server is installed and wired so the agent can deliver structured UI messages to the active chat.
 - The Flutter web client is accessible at `/flutter` and protected by a student-chosen `NANOBOT_ACCESS_KEY`.
-- When the agent needs the user to choose among multiple labs, it can render a structured choice in the Flutter client instead of dumping raw JSON.
+- The provided shared `structured-ui` skill works with the student's LMS skill so lab-selection prompts can render as structured choices in the Flutter client instead of dumping raw JSON.
 - `REPORT.md` contains responses from both checkpoints.
