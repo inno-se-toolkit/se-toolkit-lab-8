@@ -6,9 +6,9 @@ members = [
   "nanobot",
   # Uncomment these later in the lab after you add the matching repos/packages.
   # "mcp/mcp-obs",
-  # "nanobot-websocket-channel/nanobot-channel-protocol",
-  # "nanobot-websocket-channel/mcp-webchat",
-  # "nanobot-websocket-channel/nanobot-webchat",
+  "nanobot-websocket-channel/nanobot-channel-protocol",
+  "nanobot-websocket-channel/mcp-webchat",
+  "nanobot-websocket-channel/nanobot-webchat",
   # "nanobot-websocket-channel/client-telegram-bot",
 ]
 
@@ -18,9 +18,9 @@ mcp-lms = { path = "mcp/mcp-lms", editable = true }
 # Uncomment these later in the lab after you add the matching repos/packages.
 
 # mcp-obs = { path = "mcp/mcp-obs", editable = true }
-# mcp-webchat = { path = "nanobot-websocket-channel/mcp-webchat", editable = true }
-# nanobot-channel-protocol = { path = "nanobot-websocket-channel/nanobot-channel-protocol", editable = true }
-# nanobot-webchat = { path = "nanobot-websocket-channel/nanobot-webchat", editable = true }
+mcp-webchat = { path = "nanobot-websocket-channel/mcp-webchat", editable = true }
+nanobot-channel-protocol = { path = "nanobot-websocket-channel/nanobot-channel-protocol", editable = true }
+nanobot-webchat = { path = "nanobot-websocket-channel/nanobot-webchat", editable = true }
 # client-telegram-bot = { path = "nanobot-websocket-channel/client-telegram-bot", editable = true }
 
 [dependency-groups]

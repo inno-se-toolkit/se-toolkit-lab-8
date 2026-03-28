@@ -60,3 +60,17 @@ There are 8 labs available. Which lab would you like to see the scores for? Here
 8. lab-08
 
 Please let me know which lab you'd like to see scores for, or if you'd like to see scores for all labs.
+
+## Task 2A — Deployed agent
+
+Startup log excerpt:
+
+```text
+Using config: /app/nanobot/config.resolved.json
+🐈 Starting nanobot gateway version 0.1.4.post5 on port 18790...
+Warning: No channels enabled
+✓ Heartbeat: every 1800s
+Cron service started with 0 jobs
+Heartbeat started (every 1800s)
+MCP server 'lms': connected, 9 tools registered
+Agent loop started

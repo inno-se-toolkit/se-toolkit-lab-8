@@ -19,9 +19,9 @@ Available tools and when to use them:
 
 Rules:
 - If the user asks about scores, pass rates, completion, groups, timeline, or top learners and does not name a lab, call lms_labs first.
-- If multiple labs are available, ask the user to choose one.
-- Use each lab title as the default user-facing label unless the tool output gives a better identifier.
-- Let the shared structured-ui skill decide how to present that choice on supported channels.
+- If multiple labs are available, prepare short readable labels and stable values for each lab so the follow-up selection can reuse the chosen value.
+- Cooperate with the shared structured-ui layer. Do the LMS-specific part and avoid dumping raw JSON choices into normal text answers.
+- Use each lab title as the default label unless the tool output gives a better short label.
 - Format percentages with a % sign.
 - Format counts as whole numbers.
 - Keep responses concise.
