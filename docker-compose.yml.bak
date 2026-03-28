@@ -94,8 +94,9 @@ services:
 
   nanobot:
     build:
-      context: .
-      dockerfile: nanobot/Dockerfile
+      context: ./nanobot
+      additional_contexts:
+        workspace: .
       args:
         REGISTRY_PREFIX_DOCKER_HUB: ${REGISTRY_PREFIX_DOCKER_HUB:-}
         APP_UID: ${HOST_UID:-1000}
@@ -112,9 +113,9 @@ services:
       - ./lab:/app/lab:ro
       - ./contributing:/app/contributing:ro
     environment:
-      - LLM_API_KEY=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
-      - LLM_API_BASE_URL=https://openrouter.ai/api/v1
-      - LLM_API_MODEL=google/gemini-2.0-flash-001
+      - LLM_API_KEY=${QWEN_CODE_API_KEY:?'QWEN_CODE_API_KEY is required'}
+      - LLM_API_BASE_URL=http://qwen-code-api:${QWEN_CODE_API_CONTAINER_PORT:?'QWEN_CODE_API_CONTAINER_PORT is required'}/v1
+      - LLM_API_MODEL=${QWEN_CODE_API_MODEL:?'QWEN_CODE_API_MODEL is required'}
       - NANOBOT_LMS_BACKEND_URL=http://backend:${BACKEND_CONTAINER_PORT:?'BACKEND_CONTAINER_PORT is required'}
       - NANOBOT_LMS_API_KEY=${LMS_API_KEY:?'LMS_API_KEY is required'}
       - NANOBOT_VICTORIALOGS_URL=http://victorialogs:${CONST_VICTORIALOGS_CONTAINER_PORT:?'CONST_VICTORIALOGS_CONTAINER_PORT is required'}

@@ -1,20 +1,24 @@
-# See wiki/caddy.md
-
 :{$CADDY_CONTAINER_PORT} {
-    @public-utils-denied {
-        path /utils/pgadmin* /utils/victorialogs* /utils/victoriatraces*
-        not remote_ip private_ranges
-    }
-    @unknown-utils {
-        path /utils/*
-        not path /utils/pgadmin* /utils/victorialogs* /utils/victoriatraces*
+    # React dashboard
+    handle_path / {
+        root * /srv/react
+        try_files {path} /index.html
+        file_server
     }
 
-    # Keep admin and observability UIs reachable only from localhost/private networks.
-    respond @public-utils-denied "Forbidden" 403
-    # Deny any other /utils routes so they don't fall through to the SPA.
-    respond @unknown-utils "Not Found" 404
+    # Flutter web client (Task 2B)
+    handle_path /flutter* {
+        root * /srv/flutter
+        try_files {path} /index.html
+        file_server
+    }
 
+    # WebSocket channel for nanobot
+    handle /ws/chat {
+        reverse_proxy http://nanobot:{$NANOBOT_WEBCHAT_CONTAINER_PORT}
+    }
+
+    # Backend API
     handle /items* {
         reverse_proxy http://backend:{$BACKEND_CONTAINER_PORT}
     }
@@ -30,11 +34,7 @@
     handle /analytics* {
         reverse_proxy http://backend:{$BACKEND_CONTAINER_PORT}
     }
-    # Task 2A — uncomment once the nanobot service is running behind Caddy.
-    # handle /ws/chat {
-    #     reverse_proxy http://nanobot:{$NANOBOT_WEBCHAT_CONTAINER_PORT}
-    # }
-    handle /utils/pgadmin* {
+    handle_path /utils/pgadmin* {
         reverse_proxy http://pgadmin:{$CONST_PGADMIN_CONTAINER_PORT}
     }
     handle_path /utils/victorialogs* {
@@ -48,16 +48,5 @@
     }
     handle /openapi.json {
         reverse_proxy http://backend:{$BACKEND_CONTAINER_PORT}
-    }
-    # Task 2B — uncomment once the Flutter build output is mounted at /srv/flutter.
-    # handle_path /flutter* {
-    #     root * /srv/flutter
-    #     try_files {path} /index.html
-    #     file_server
-    # }
-    handle {
-        root * /srv/react
-        try_files {path} /index.html
-        file_server
     }
 }

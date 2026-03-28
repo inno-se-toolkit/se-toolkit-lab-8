@@ -1,0 +1,75 @@
+{
+  "agents": {
+    "defaults": {
+      "workspace": "./workspace",
+      "model": "google/gemini-2.0-flash-001",
+      "provider": "custom",
+      "maxTokens": 8192,
+      "contextWindowTokens": 65536,
+      "temperature": 0.1,
+      "maxToolIterations": 40,
+      "reasoningEffort": null,
+      "timezone": "UTC"
+    }
+  },
+  "channels": {
+    "sendProgress": true,
+    "sendToolHints": false,
+    "sendMaxRetries": 3,
+    "telegram": {
+      "enabled": false,
+      "token": "",
+      "allowFrom": [],
+      "proxy": null,
+      "replyToMessage": false,
+      "reactEmoji": "👀",
+      "groupPolicy": "mention",
+      "connectionPoolSize": 32,
+      "poolTimeout": 5.0,
+      "streaming": true
+    }
+  },
+  "providers": {
+    "custom": {
+      "apiKey": "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",
+      "apiBase": "https://openrouter.ai/api/v1",
+      "extraHeaders": null
+    }
+  },
+  "gateway": {
+    "host": "0.0.0.0",
+    "port": 18790,
+    "heartbeat": {
+      "enabled": true,
+      "intervalS": 1800,
+      "keepRecentMessages": 8
+    }
+  },
+  "tools": {
+    "web": {
+      "proxy": null,
+      "search": {
+        "provider": "brave",
+        "apiKey": "",
+        "baseUrl": "",
+        "maxResults": 5
+      }
+    },
+    "exec": {
+      "enable": true,
+      "timeout": 60,
+      "pathAppend": ""
+    },
+    "restrictToWorkspace": false,
+    "mcpServers": {
+      "lms": {
+        "command": "python",
+        "args": ["-m", "mcp_lms"],
+        "env": {
+          "NANOBOT_LMS_BACKEND_URL": "http://localhost:42002",
+          "NANOBOT_LMS_API_KEY": "mysecretkey123"
+        }
+      }
+    }
+  }
+}
