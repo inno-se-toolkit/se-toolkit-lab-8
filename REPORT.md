@@ -1,30 +1,21 @@
-# Nanobot Setup Report
+# Lab 8 Report
 
-## Task 1A — Bare agent
+## Task 4A — Multi-step investigation
 
-**Question:** What is the agentic loop?
-**Response:**
-Based on the search results, the agentic loop is a closed-loop AI architecture that integrates continuous observation, reasoning, planning, and tool-mediated execution to achieve a goal. It's an operating cycle that enables AI systems to move beyond static automation.
+**Question:** What went wrong?
+**Response:** After stopping PostgreSQL, the agent was asked "What went wrong?". It used observability tools to search recent error logs and found a trace indicating a database connection failure. The logs showed repeated `ConnectionRefusedError` from the backend when trying to query the database. The trace confirmed that the failure originated in the database access layer. The backend incorrectly returned a 404 "Items not found" instead of exposing the real connection error. The agent summarized that the root cause was PostgreSQL being down, and the backend was masking the failure.
 
-**Question:** What labs are available in our LMS?
-**Response:**
-Without MCP tools, the agent could not access the LMS backend directly. It used web search or replied that it didn't have the information.
+## Task 4B — Proactive health check
 
-## Task 1B — Agent with LMS tools
+**Scheduled job:** A cron job was created to check for LMS backend errors every 2 minutes. The job was listed successfully.
 
-**Question:** What labs are available?
-**Response:**
-The available labs are: Lab 01 – Products, Architecture & Roles, Lab 02 — Run, Fix, and Deploy a Backend Service, Lab 03 — Backend API: Explore, Debug, Implement, Deploy, Lab 04 — Testing, Front-end, and AI Agents, Lab 05 — Data Pipeline and Analytics Dashboard, Lab 06 — Build Your Own Agent, Lab 07 — Build a Client with an AI Coding Agent, and lab-08.
+**Proactive health report:** After triggering another request while PostgreSQL was stopped, the cron job reported: "Detected database connection errors in the last 2 minutes. Trace ID ... shows the failure in the database layer. The backend returned 404 but the real error is a connection refusal. System is unhealthy."
 
-**Question:** Is the LMS backend healthy?
-**Response:**
-Yes, the LMS backend is healthy. It contains 56 items.
+## Task 4C — Bug fix and recovery
 
-## Task 1C — Skill prompt
+**Root cause:** In `backend/app/routers/items.py`, there was a broad exception handler that caught all exceptions and returned a 404 status with "Items not found". This masked the underlying database connection error.
 
-**Question:** Show me the scores
-**Response:**
-I need to know which lab you are asking about. Would you like me to list the available labs?
-<- Simple Dockerfile without uv build final update -->
-<- Simple Dockerfile without uv build final update -->
-<- Simple Dockerfile without uv build final update1 -->
+**Fix:** The exception handler was modified to properly log the error and return a 500 status with the actual error message. The relevant code was changed from:
+```python
+except Exception:
+    raise HTTPException(status_code=404, detail="Items not found")
