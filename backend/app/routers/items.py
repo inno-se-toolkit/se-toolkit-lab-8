@@ -18,8 +18,8 @@ async def get_items(session: AsyncSession = Depends(get_session)):
         return await read_items(session)
     except Exception as exc:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Items not found",
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Database error: " + str(exc),
         ) from exc
 
 
@@ -29,7 +29,7 @@ async def get_item(item_id: int, session: AsyncSession = Depends(get_session)):
     item = await read_item(session, item_id)
     if item is None:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Item not found"
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Item not found"
         )
     return item
 
@@ -62,6 +62,6 @@ async def put_item(
     )
     if item is None:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Item not found"
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Item not found"
         )
     return item
