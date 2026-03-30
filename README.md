@@ -8,6 +8,7 @@
 
 
 
+
 > Your team has been running the LMS backend for weeks. Everyone queries data through the React dashboard or Swagger UI. Your team lead wants a new kind of interface: an AI agent that anyone can talk to in natural language. Nanobot is a lighter version of OpenClaw, and this kind of agent is becoming the new intelligent AI user interface. Instead of clicking through dashboards, users just ask questions — "which lab has the lowest pass rate?", "any errors in the last hour?" — and the agent figures out which API calls to make.
 >
 > Set it up from scratch. Wire it into the system. Then extend it with observability tools so it can answer questions about system health too.
