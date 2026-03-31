@@ -73,6 +73,18 @@ def main() -> None:
         },
     }
 
+    # Observability MCP server — VictoriaLogs and VictoriaTraces access
+    logs_url = os.environ.get("NANOBOT_VICTORIALOGS_URL", "http://victorialogs:9428")
+    traces_url = os.environ.get("NANOBOT_VICTORIATRACES_URL", "http://victoriatraces:10428")
+    mcp["obs"] = {
+        "command": "python",
+        "args": ["-m", "mcp_obs"],
+        "env": {
+            "NANOBOT_VICTORIALOGS_URL": logs_url,
+            "NANOBOT_VICTORIATRACES_URL": traces_url,
+        },
+    }
+
     with open(CONFIG_OUT, "w") as f:
         json.dump(config, f, indent=2)
 

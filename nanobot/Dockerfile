@@ -20,6 +20,7 @@ COPY --from=workspace pyproject.toml uv.lock /app/
 COPY pyproject.toml /app/nanobot/pyproject.toml
 # Copy dependent package manifests for uv dep resolution
 COPY --from=workspace mcp/mcp-lms/pyproject.toml /app/mcp/mcp-lms/pyproject.toml
+COPY --from=workspace mcp/mcp-obs/pyproject.toml /app/mcp/mcp-obs/pyproject.toml
 COPY --from=workspace nanobot-websocket-channel/nanobot-channel-protocol/pyproject.toml \
     /app/nanobot-websocket-channel/nanobot-channel-protocol/pyproject.toml
 COPY --from=workspace nanobot-websocket-channel/nanobot-webchat/pyproject.toml \
@@ -33,6 +34,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 # Copy all source needed for editable installs
 COPY --from=workspace mcp/mcp-lms/src /app/mcp/mcp-lms/src
+COPY --from=workspace mcp/mcp-obs /app/mcp/mcp-obs
 COPY --from=workspace nanobot-websocket-channel/nanobot-channel-protocol/src \
     /app/nanobot-websocket-channel/nanobot-channel-protocol/src
 COPY --from=workspace nanobot-websocket-channel/nanobot-webchat/src \
@@ -43,8 +45,10 @@ COPY --from=workspace nanobot-websocket-channel/mcp-webchat/src \
 COPY . /app/nanobot
 
 # Register editable installs (workspace packages)
+# First install mcp-obs explicitly since nanobot depends on it
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --package nanobot
+    uv pip install --editable /app/mcp/mcp-obs && \
+    uv sync --package nanobot
 
 # ---
 # Stage 2: runtime image without uv
