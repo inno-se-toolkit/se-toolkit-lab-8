@@ -115,6 +115,8 @@ services:
       - NANOBOT_WEBCHAT_CONTAINER_ADDRESS=${NANOBOT_WEBCHAT_CONTAINER_ADDRESS:?'NANOBOT_WEBCHAT_CONTAINER_ADDRESS is required'}
       - NANOBOT_WEBCHAT_CONTAINER_PORT=${NANOBOT_WEBCHAT_CONTAINER_PORT:?'NANOBOT_WEBCHAT_CONTAINER_PORT is required'}
       - NANOBOT_ACCESS_KEY=${NANOBOT_ACCESS_KEY:?'NANOBOT_ACCESS_KEY is required'}
+      - NANOBOT_VICTORIALOGS_URL=http://victorialogs:9428
+      - NANOBOT_VICTORIATRACES_URL=http://victoriatraces:10428
     depends_on:
       - backend
       - qwen-code-api
@@ -212,6 +214,8 @@ services:
   #     - BOT_TOKEN=${BOT_TOKEN:?'BOT_TOKEN is required'}
   #     - NANOBOT_WS_URL=${NANOBOT_WS_URL:?'NANOBOT_WS_URL is required'}
   #     - NANOBOT_ACCESS_KEY=${NANOBOT_ACCESS_KEY:?'NANOBOT_ACCESS_KEY is required'}
+      - NANOBOT_VICTORIALOGS_URL=http://victorialogs:9428
+      - NANOBOT_VICTORIATRACES_URL=http://victoriatraces:10428
   #   depends_on:
   #     - nanobot
 
