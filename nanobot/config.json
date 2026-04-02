@@ -1,7 +1,7 @@
 {
   "agents": {
     "defaults": {
-      "workspace": "/root/se-toolkit-lab-8/nanobot/workspace",
+      "workspace": "/app/nanobot/workspace",
       "model": "coder-model",
       "provider": "custom",
       "maxTokens": 8192,
@@ -318,6 +318,17 @@
         "env": {
           "NANOBOT_LMS_BACKEND_URL": "http://localhost:42002",
           "NANOBOT_LMS_API_KEY": "fedyann-secret-key"
+        }
+      },
+      "obs": {
+        "command": "python",
+        "args": [
+          "-m",
+          "mcp_obs"
+        ],
+        "env": {
+          "NANOBOT_VICTORIALOGS_URL": "http://victorialogs:9428",
+          "NANOBOT_VICTORIATRACES_URL": "http://victoriatraces:10428"
         }
       }
     }

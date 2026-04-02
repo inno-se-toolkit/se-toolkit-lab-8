@@ -1,0 +1,30 @@
+nanobot-1  | This could mean:...
+nanobot-1  | 2026-04-02 12:20:11.125 | DEBUG    | nanobot.agent.memory:maybe_consolidate_by_tokens:323 - Token consolidation idle webchat:62d30e2b-0a7e-430f-a6a7-cfdbc58443fd: 5127/65536 via tiktoken
+nanobot-1  | [1;33m[WARNING]	(channel.py:114)send	[0mWebChat: no connection for chat_id=62d30e2b-0a7e-430f-a6a7-cfdbc58443fd
+nanobot-1  | 2026-04-02 12:20:21.443 | INFO     | nanobot.agent.loop:_process_message:425 - Processing message from webchat:370912d2-fef0-4c64-b313-6ecc99e175a8: What labs are available?
+nanobot-1  | 2026-04-02 12:20:26.132 | INFO     | nanobot.agent.loop:_prepare_tools:253 - Tool call: mcp_lms_lms_labs({})
+nanobot-1  | 2026-04-02 12:20:30.682 | INFO     | nanobot.agent.loop:_process_message:479 - Response to webchat:370912d2-fef0-4c64-b313-6ecc99e175a8: There are currently no labs available in the LMS system. The lab list is empty.
+nanobot-1  | 
+nanobot-1  | Would you like me to check if the LMS b...
+nanobot-1  | 2026-04-02 12:20:30.702 | DEBUG    | nanobot.agent.memory:maybe_consolidate_by_tokens:323 - Token consolidation idle webchat:370912d2-fef0-4c64-b313-6ecc99e175a8: 5020/65536 via tiktoken
+nanobot-1  | [1;33m[WARNING]	(channel.py:114)send	[0mWebChat: no connection for chat_id=370912d2-fef0-4c64-b313-6ecc99e175a8
+nanobot-1  | 2026-04-02 12:21:02.611 | INFO     | nanobot.heartbeat.service:_tick:154 - Heartbeat: checking for tasks...
+nanobot-1  | 2026-04-02 12:21:08.773 | INFO     | nanobot.heartbeat.service:_tick:160 - Heartbeat: OK (nothing to report)
+nanobot-1  | 2026-04-02 12:22:44.610 | INFO     | nanobot.agent.loop:_process_message:425 - Processing message from webchat:f8ed6da2-bf51-4cba-b688-356fd268244a: What labs are available?
+nanobot-1  | 2026-04-02 12:22:47.867 | INFO     | nanobot.agent.loop:_prepare_tools:253 - Tool call: mcp_lms_lms_labs({})
+nanobot-1  | 2026-04-02 12:22:51.853 | INFO     | nanobot.agent.loop:_process_message:479 - Response to webchat:f8ed6da2-bf51-4cba-b688-356fd268244a: Here are the available labs:
+nanobot-1  | 
+nanobot-1  | 1. **Lab 01** – Products, Architecture & Roles
+nanobot-1  | 2. **Lab 02** — Run, Fix, and Deploy a Back...
+nanobot-1  | 2026-04-02 12:22:51.871 | DEBUG    | nanobot.agent.memory:maybe_consolidate_by_tokens:323 - Token consolidation idle webchat:f8ed6da2-bf51-4cba-b688-356fd268244a: 5431/65536 via tiktoken
+nanobot-1  | [1;33m[WARNING]	(channel.py:114)send	[0mWebChat: no connection for chat_id=f8ed6da2-bf51-4cba-b688-356fd268244a
+nanobot-1  | 2026-04-02 12:25:01.253 | INFO     | nanobot.agent.loop:_process_message:425 - Processing message from webchat:df343bed-52c1-41ed-9c9a-78be220ee1cb: What labs are available?
+nanobot-1  | 2026-04-02 12:25:08.912 | INFO     | nanobot.agent.loop:_prepare_tools:253 - Tool call: mcp_lms_lms_labs({})
+nanobot-1  | 2026-04-02 12:25:14.814 | INFO     | nanobot.agent.loop:_process_message:479 - Response to webchat:df343bed-52c1-41ed-9c9a-78be220ee1cb: Here are the available labs:
+nanobot-1  | 
+nanobot-1  | 1. **Lab 01** – Products, Architecture & Roles
+nanobot-1  | 2. **Lab 02** — Run, Fix, and Deploy a Back...
+nanobot-1  | 2026-04-02 12:25:14.835 | DEBUG    | nanobot.agent.memory:maybe_consolidate_by_tokens:323 - Token consolidation idle webchat:df343bed-52c1-41ed-9c9a-78be220ee1cb: 5433/65536 via tiktoken
+nanobot-1  | 2026-04-02 12:34:16.960 | INFO     | nanobot.agent.loop:_process_message:425 - Processing message from webchat:c4eabb34-4f58-4b08-8642-30c5cb0134c9: hello
+nanobot-1  | 2026-04-02 12:34:21.939 | INFO     | nanobot.agent.loop:_process_message:479 - Response to webchat:c4eabb34-4f58-4b08-8642-30c5cb0134c9: Hello! 👋 I'm nanobot, your AI assistant. How can I help you today?
+nanobot-1  | 2026-04-02 12:34:21.961 | DEBUG    | nanobot.agent.memory:maybe_consolidate_by_tokens:323 - Token consolidation idle webchat:c4eabb34-4f58-4b08-8642-30c5cb0134c9: 4930/65536 via tiktoken

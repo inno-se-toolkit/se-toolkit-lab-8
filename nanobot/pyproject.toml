@@ -16,12 +16,14 @@ dependencies = [
     # "mcp-webchat",
     # "nanobot-webchat",
     # Task 3 — uncomment after you add mcp-obs.
-    # "mcp-obs",
+    "mcp-obs",
     "nanobot-ai>=0.1.4.post5",
     "mcp-lms",
     "nanobot-webchat",
 ]
-
 [tool.uv.sources]
-mcp-lms = { path = "../mcp/mcp-lms", editable = true }
-nanobot-webchat = { path = "../nanobot-websocket-channel/nanobot-webchat", editable = true }
+mcp-lms = { workspace = true }
+nanobot-webchat = { workspace = true }
+[tool.setuptools]
+packages = []
+py-modules = ["entrypoint"]
