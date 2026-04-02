@@ -211,3 +211,40 @@ Connection pool exhausted
 
 The errors occurred between 13:56 and 13:58 UTC. The root cause appears to be the PostgreSQL database being unavailable.
 
+
+## Task 3A — Structured logging
+
+**Happy-path log excerpt (successful request):**
+backend-1 | 2026-04-02 13:42:42.908 | INFO | request_started trace_id=8a37b693ec94cb21e6f06381ef505fe3
+backend-1 | 2026-04-02 13:42:42.909 | INFO | db_query
+backend-1 | 2026-04-02 13:42:42.909 | INFO | request_completed status=200
+
+**Error-path log excerpt (PostgreSQL stopped):**
+backend-1 | 2026-04-02 13:01:54,166 INFO | request_started trace_id=a4e22b8f09b6658fd9df8846be57e265
+backend-1 | 2026-04-02 13:01:54,352 ERROR | db_query error="connection refused"
+backend-1 | 2026-04-02 13:01:54,353 INFO | request_completed status=500
+
+**VictoriaLogs query screenshot:**
+
+![VictoriaLogs query](victorialogs.png)
+
+## Task 3B — Traces
+
+**Healthy trace (trace_id: 8a37b693ec94cb21e6f06381ef505fe3):**
+- Span hierarchy:
+  - `request_started` (duration ~5ms)
+  - `auth_success`
+  - `db_query` (duration ~2ms)
+  - `request_completed` (status 200)
+
+**Error trace (trace_id: a4e22b8f09b6658fd9df8846be57e265):**
+- Span hierarchy:
+  - `request_started`
+  - `auth_success`
+  - `db_query` (failed with error "connection refused")
+  - `request_completed` (status 500)
+
+**Screenshots:**
+![Healthy trace](healthy-trace.png)
+![Error trace](error-trace.png)
+
