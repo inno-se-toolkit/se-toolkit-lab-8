@@ -73,3 +73,4 @@ In Lab 7 you built one client around your own LLM loop. Here, the agent becomes 
 ### Optional
 
 1. [Add a Telegram Bot Client](./lab/tasks/optional/task-1.md) — same agent, different interface
+# Task 3 Complete
