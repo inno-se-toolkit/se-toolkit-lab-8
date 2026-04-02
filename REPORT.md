@@ -163,3 +163,51 @@ After logging in with `NANOBOT_ACCESS_KEY`, the agent successfully responds to q
 - User: "What labs are available?"
 - Agent: Returns list of 8 labs with names and offers to provide more details (completion rates, pass rates, top learners).
 
+
+## Task 3A — Structured logging
+
+**Happy-path log excerpt (successful request):**
+backend-1 | 2026-04-02 12:20:03,052 INFO - request_started
+backend-1 | 2026-04-02 12:20:03,053 INFO - db_query
+backend-1 | 2026-04-02 12:20:03,056 INFO - request_completed
+
+**Error-path log excerpt (PostgreSQL stopped / items not found):**
+backend-1 | 2026-04-02 12:49:44,710 INFO - request_started
+backend-1 | 2026-04-02 12:49:44,711 INFO - auth_success
+backend-1 | 2026-04-02 12:49:44,712 INFO - db_query
+backend-1 | 2026-04-02 12:49:44,715 ERROR - db_query
+backend-1 | 2026-04-02 12:49:44,715 WARNING - items_list_failed_as_not_found
+backend-1 | 2026-04-02 12:49:44,716 INFO - request_completed
+backend-1 | INFO: 172.18.0.1:42848 - "GET /items/ HTTP/1.1" 404 Not Found
+
+**VictoriaLogs query screenshot:**
+
+![VictoriaLogs query](victorialogs.png)
+
+## Task 3B — Traces
+
+**Healthy trace screenshot:**
+
+![Healthy trace](healthy-trace.png)
+
+**Error trace screenshot:**
+
+![Error trace](error-trace.png)
+
+
+## Task 3C — Observability MCP tools
+
+**Normal conditions (no errors):**
+Good news! There are no errors in the LMS backend over the last 10 minutes. The Learning Management Service appears to be operating normally. No database connection issues or failed queries detected in the recent log data.
+
+**Failure conditions (PostgreSQL stopped - database-related errors):**
+Yes, there are 3 errors in the LMS backend in the last 10 minutes. All are database-related:
+
+Database connection refused
+
+Query execution failed
+
+Connection pool exhausted
+
+The errors occurred between 13:56 and 13:58 UTC. The root cause appears to be the PostgreSQL database being unavailable.
+
