@@ -1,6 +1,6 @@
 [tool.uv.workspace]
 members = [
-    # "mcp/mcp-obs",
+    "mcp/mcp-obs",
   "backend",
   "qwen-code-api",
   "mcp/mcp-lms",
@@ -15,7 +15,7 @@ members = [
   "nanobot-websocket-channel/client-telegram-bot",
   
   # Task 3 — uncomment after you add mcp-obs.
-  # "mcp/mcp-obs",
+  "mcp/mcp-obs",
 ]
 
 [tool.uv.sources]

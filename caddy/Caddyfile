@@ -32,7 +32,10 @@
     }
     # Task 2B — uncomment after you add the webchat channel.
     handle /ws/chat {
-        reverse_proxy http://nanobot:{$NANOBOT_WEBCHAT_CONTAINER_PORT}
+        reverse_proxy http://nanobot:{$NANOBOT_WEBCHAT_CONTAINER_PORT} {
+            header_up Upgrade "websocket"
+            header_up Connection "Upgrade"
+        }
     }
     handle /utils/pgadmin* {
         reverse_proxy http://pgadmin:{$CONST_PGADMIN_CONTAINER_PORT}

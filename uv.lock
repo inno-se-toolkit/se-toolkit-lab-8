@@ -7,6 +7,7 @@ members = [
     "client-telegram-bot",
     "lms-backend",
     "mcp-lms",
+    "mcp-obs",
     "mcp-webchat",
     "nanobot",
     "nanobot-channel-protocol",
@@ -996,6 +997,21 @@ requires-dist = [
 ]
 
 [[package]]
+name = "mcp-obs"
+version = "0.1.0"
+source = { editable = "mcp/mcp-obs" }
+dependencies = [
+    { name = "httpx" },
+    { name = "mcp" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "httpx", specifier = ">=0.27.0" },
+    { name = "mcp", specifier = ">=1.0.0" },
+]
+
+[[package]]
 name = "mcp-webchat"
 version = "0.1.0"
 source = { editable = "nanobot-websocket-channel/mcp-webchat" }
@@ -1098,6 +1114,7 @@ version = "0.1.0"
 source = { editable = "nanobot" }
 dependencies = [
     { name = "mcp-lms" },
+    { name = "mcp-obs" },
     { name = "nanobot-ai" },
     { name = "nanobot-webchat" },
     { name = "opentelemetry-distro", extra = ["otlp"] },
@@ -1110,6 +1127,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "mcp-lms", editable = "mcp/mcp-lms" },
+    { name = "mcp-obs", editable = "mcp/mcp-obs" },
     { name = "nanobot-ai", specifier = ">=0.1.4.post5" },
     { name = "nanobot-webchat", editable = "nanobot-websocket-channel/nanobot-webchat" },
     { name = "opentelemetry-distro", extras = ["otlp"], specifier = ">=0.61b0" },

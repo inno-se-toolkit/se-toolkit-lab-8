@@ -295,3 +295,131 @@ Connection pool exhausted
 
 The errors occurred between 13:56 and 13:58 UTC. The root cause appears to be the PostgreSQL database being unavailable.
 
+## Task 4A — Multi-step investigation
+
+**Can you also check the trace for the most recent failed request?:**
+
+## Trace Analysis
+
+Here's what the traces reveal about the failed requests:
+
+### Most Recent Failed Request (Trace: `6daf3ba60f7bf1f542030696d4ad1e5e`)
+| Span | Duration |
+|------|----------|
+| GET /items/ | 4271.40ms |
+| connect | 4263.11ms ⚠️ |
+| GET | 4274.74ms |
+
+**Key Finding:** The `connect` operation took **4.2 seconds** before failing - this is the database connection timing out.
+
+### Comparison with Other Recent Traces
+
+| Trace ID | Connect Time | Status |
+|----------|--------------|--------|
+| `54e61ca170c80c15d5d6e285f53c70f1` | N/A (sync pipeline) | 443ms total |
+| `7077cee33667ab1a6c8a6e442ee15e95` | 109.77ms | Fast |
+| `1d6db6bdcbe9ddf4a13a12b59f7fa20e` | 206.39ms | Normal |
+| `6daf3ba60f7bf1f542030696d4ad1e5e` | **4263.11ms** | ❌ Timeout |
+
+### Pattern Identified
+
+The traces show **intermittent database connectivity**:
+- Some requests connect quickly (~100-200ms)
+- Others timeout after ~4 seconds
+
+This suggests:
+1. **Unstable network** between LMS backend and database
+2. **Database under heavy load** causing connection pool exhaustion
+3. **DNS resolution issues** - sometimes the hostname resolves, sometimes it doesn't
+
+The "Name or service not known" error in the logs combined with the long connect timeout points to **DNS resolution problems** rather than a completely down database.
+
+## Task 4B — Proactive health check
+
+⚠️ **LMS Health Check - Issues Detected**
+
+**4 errors** found in the Learning Management Service over the last 2 minutes.
+
+**Issue Summary:**
+- **Error Type:** Database connection failure
+- **Error Message:** `[Errno -2] Name or service not known`
+- **Affected Operation:** `db_query` (SELECT on `item` table)
+- **Root Cause:** DNS resolution failure — the LMS backend cannot resolve the database hostname
+
+**Most Recent Trace Analysis:**
+- Trace `4ddad9364925bf968572c9f3c42614d1` shows a `GET /items/` request
+- Database connect operation took ~4.1 seconds before failing
+- All spans indicate failed database queries
+
+**Recommendation:** Check database hostname configuration and DNS resolution in the LMS backend environment.
+
+## Task 4C — Bug fix and recovery
+
+### Root cause
+The planted bug was in `backend/src/lms_backend/routers/items.py` in the `GET /items/` endpoint. A broad `except Exception` block caught all exceptions — including real database connection failures — and re-raised them as HTTP 404 "Items not found". This completely hid the real cause (PostgreSQL being down) and made the system look like a missing-data problem instead of a database outage.
+
+### Fix
+Removed the try/except block entirely so database errors propagate naturally. FastAPI's global exception handler then converts them to HTTP 500 with the real error visible in logs and traces.
+
+**Before:**
+```python
+try:
+    return await read_items(session)
+except Exception as exc:
+    logger.warning(
+        "items_list_failed_as_not_found",
+        extra={"event": "items_list_failed_as_not_found"},
+    )
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail="Items not found",
+    ) from exc
+```
+
+**After:**
+```python
+return await read_items(session)
+```
+
+### Post-fix failure check
+After redeploy, with PostgreSQL stopped, asking "What went wrong?" the agent now reported HTTP 500 and real database errors instead of the fake 404:
+
+## ❌ Labs Currently Unavailable
+
+The LMS backend is experiencing **intermittent failures**. Here's the current status:
+
+| Status | Detail |
+|--------|--------|
+| **Health** | ❌ Unhealthy (HTTP 500) |
+| **Recent Errors** | Unhandled exceptions in the last 5 minutes |
+| **Root Cause** | Database connectivity issues (error code: -2) |
+
+### What's Happening
+
+The traces show **improved connection times** (~104ms vs. the 4+ second timeouts earlier), but the service is still throwing unhandled exceptions when querying the database. This suggests:
+
+1. **Intermittent DNS resolution** - Sometimes the database hostname resolves, sometimes it doesn't
+2. **Connection pool issues** - Connections may be failing after initial connect
+3. **Database service instability** - The database may be restarting or under load
+
+### Recent Trace Analysis
+```
+Trace: 94ae6b2d568c2721338cdf40d9a5faec
+- connect: 104.37ms ✓ (much better than before)
+- GET /items/: 113.50ms
+- Status: Still returning 500 errors
+```
+
+### Recommendation
+The backend team should check:
+1. Database service health and restart status
+2. Connection pool configuration in the LMS backend
+3. DNS stability for the database hostname
+
+Would you like me to continue monitoring or help with something else?
+
+### Healthy follow-up
+After restarting PostgreSQL, the scheduled health check reported:
+
+✅ LMS Health Check
+System looks healthy. No errors detected in the Learning Management Service over the last 2 minutes.

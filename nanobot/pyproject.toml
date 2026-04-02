@@ -22,6 +22,7 @@ dependencies = [
     "nanobot-webchat",
 ]
 [tool.uv.sources]
+mcp-obs = { workspace = true }
 mcp-lms = { workspace = true }
 nanobot-webchat = { workspace = true }
 [tool.setuptools]
