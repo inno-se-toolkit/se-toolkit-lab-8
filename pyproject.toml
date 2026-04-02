@@ -19,7 +19,6 @@ members = [
 ]
 
 [tool.uv.sources]
-mcp-obs = { path = "mcp/mcp-obs", editable = true }
 mcp-lms = { workspace = true, editable = true }
 
 # Task 1 — uncomment after you create the nanobot/ project.

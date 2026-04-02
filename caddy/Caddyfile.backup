@@ -1,0 +1,63 @@
+# See wiki/caddy.md
+
+:{$CADDY_CONTAINER_PORT} {
+    @public-utils-denied {
+        path /utils/pgadmin* /utils/victorialogs* /utils/victoriatraces*
+        not remote_ip private_ranges
+    }
+    @unknown-utils {
+        path /utils/*
+        not path /utils/pgadmin* /utils/victorialogs* /utils/victoriatraces*
+    }
+
+    # Keep admin and observability UIs reachable only from localhost/private networks.
+    respond @public-utils-denied "Forbidden" 403
+    # Deny any other /utils routes so they don't fall through to the SPA.
+    respond @unknown-utils "Not Found" 404
+
+    handle /items* {
+        reverse_proxy http://backend:{$BACKEND_CONTAINER_PORT}
+    }
+    handle /learners* {
+        reverse_proxy http://backend:{$BACKEND_CONTAINER_PORT}
+    }
+    handle /interactions* {
+        reverse_proxy http://backend:{$BACKEND_CONTAINER_PORT}
+    }
+    handle /pipeline* {
+        reverse_proxy http://backend:{$BACKEND_CONTAINER_PORT}
+    }
+    handle /analytics* {
+        reverse_proxy http://backend:{$BACKEND_CONTAINER_PORT}
+    }
+    # Task 2B — uncomment after you add the webchat channel.
+    # handle /ws/chat {
+    #     reverse_proxy http://nanobot:{$NANOBOT_WEBCHAT_CONTAINER_PORT}
+    # }
+    handle /utils/pgadmin* {
+        reverse_proxy http://pgadmin:{$CONST_PGADMIN_CONTAINER_PORT}
+    }
+    handle_path /utils/victorialogs* {
+        reverse_proxy http://victorialogs:{$CONST_VICTORIALOGS_CONTAINER_PORT}
+    }
+    handle_path /utils/victoriatraces* {
+        reverse_proxy http://victoriatraces:{$CONST_VICTORIATRACES_CONTAINER_PORT}
+    }
+    handle /docs* {
+        reverse_proxy http://backend:{$BACKEND_CONTAINER_PORT}
+    }
+    handle /openapi.json {
+        reverse_proxy http://backend:{$BACKEND_CONTAINER_PORT}
+    }
+    # Task 2B — uncomment once the Flutter build output is mounted at /srv/flutter.
+    # handle_path /flutter* {
+    #     root * /srv/flutter
+    #     try_files {path} /index.html
+    #     file_server
+    # }
+    handle {
+        root * /srv/react
+        try_files {path} /index.html
+        file_server
+    }
+}
