@@ -21,13 +21,9 @@ Start by reading the [official nanobot repository](https://github.com/HKUDS/nano
 
 ### What to do in Part A
 
-1. Create a repo-local `nanobot/` project:
+1. Uncomment `"nanobot"` and `nanobot = { workspace = true, editable = true }` in the root `pyproject.toml` (marked with `Task 1`) so the workspace recognizes the repo-local `nanobot` project.
 
-   ```terminal
-   uv init nanobot
-   ```
-
-2. Enter the repo-local project directory:
+2. Enter the `nanobot` project directory:
 
    ```terminal
    cd nanobot
@@ -45,16 +41,16 @@ Start by reading the [official nanobot repository](https://github.com/HKUDS/nano
    > [!CAUTION]
    > The latest released version (`v0.1.4.post5`) is infected (see [#2439](https://github.com/HKUDS/nanobot/issues/2439)). So, don't download this version from `GitHub` or `PyPI`.
 
-4. Run the onboard wizard inside the repo-local project to generate the initial configuration and workspace:
+4. Run the onboard wizard to generate the initial configuration and workspace:
 
    ```terminal
    cd nanobot
-   uv run nanobot onboard -c config.json
+   uv run nanobot onboard -c config.json --workspace ./workspace
    ```
 
    The wizard will guide you through configuring the LLM provider.
 
-   `y = overwrite with defaults (existing values will be lost)` - Type `y` and press `Enter`.
+   `N = refresh config, keeping existing values and adding new fields` - Type `N` and press `Enter`.
 
    Set up the **custom** provider (any OpenAI-compatible endpoint) and point it to the `Qwen Code` API:
    - **agents.defaults.workspace** `./workspace`
@@ -124,11 +120,11 @@ The same MCP server works with any agent that speaks MCP — nanobot, Claude, Cu
 
 The LMS MCP server is provided in `mcp/mcp-lms/`. It exposes the backend API as tools: `lms_health`, `lms_labs`, `lms_pass_rates`, etc.
 
-1. Install the MCP server as a dependency so nanobot can find it:
+1. Uncomment `mcp-lms` in `nanobot/pyproject.toml` (marked with `Task 1`), then sync:
 
    ```terminal
    cd nanobot
-   uv add mcp-lms --editable ../mcp/mcp-lms
+   uv sync
    ```
 
 2. Add the MCP server to your repo-local nanobot config (`nanobot/config.json`). It runs as a subprocess via `python -m mcp_lms`.

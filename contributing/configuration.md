@@ -153,6 +153,8 @@ When bundling external source repositories as submodules, place them under `pack
 Use `packages/` for code that is installed from a local path but is not a first-party workspace member.
 This keeps bundled package sources separate from lab-owned services such as `backend/` and `mcp/`, while making commands like `uv add <name> --path ../packages/<name>` read naturally.
 
+When a lab requires students to modify files inside an external repository (e.g., overwriting its `Dockerfile` or `entrypoint.py` for workspace integration), keep it as a regular subdirectory instead of a submodule. Changes inside a submodule are tracked by the submodule's own git, not the parent repo, so students cannot push those modifications with their lab work. For example, `nanobot/` is a plain subdirectory (not a submodule) because students must replace its standalone `Dockerfile` and `entrypoint.py` with workspace-aware versions.
+
 ### 2.3. Editor and linting
 
 - [`.vscode/settings.json`](../.vscode/settings.json) — Configures auto-save, format-on-save, language-specific formatters, and Markdown preview behavior. Ensures all contributors use consistent editor settings. See [VS Code settings](#5-vs-code-settings-vscodesettingsjson) for the canonical configuration.

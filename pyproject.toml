@@ -4,25 +4,33 @@ members = [
   "qwen-code-api",
   "mcp/mcp-lms",
 
-  # Uncomment these later in the lab after you add the matching repos/packages.
-
-  # "mcp/mcp-obs",
+  # Task 1 — uncomment after you create the nanobot/ project.
+  # "nanobot",
+  
+  # Task 2B — uncomment after you add the webchat channel.
   # "nanobot-websocket-channel/nanobot-channel-protocol",
   # "nanobot-websocket-channel/mcp-webchat",
   # "nanobot-websocket-channel/nanobot-webchat",
   # "nanobot-websocket-channel/client-telegram-bot",
+  
+  # Task 3 — uncomment after you add mcp-obs.
+  # "mcp/mcp-obs",
 ]
 
 [tool.uv.sources]
-mcp-lms = { path = "mcp/mcp-lms", editable = true }
+mcp-lms = { workspace = true, editable = true }
 
-# Uncomment these later in the lab after you add the matching repos/packages.
+# Task 1 — uncomment after you create the nanobot/ project.
+# nanobot = { workspace = true, editable = true }
 
-# mcp-obs = { path = "mcp/mcp-obs", editable = true }
-# mcp-webchat = { path = "nanobot-websocket-channel/mcp-webchat", editable = true }
-# nanobot-channel-protocol = { path = "nanobot-websocket-channel/nanobot-channel-protocol", editable = true }
-# nanobot-webchat = { path = "nanobot-websocket-channel/nanobot-webchat", editable = true }
-# client-telegram-bot = { path = "nanobot-websocket-channel/client-telegram-bot", editable = true }
+# Task 2B — uncomment after you add the webchat channel.
+# mcp-webchat = { workspace = true, editable = true }
+# nanobot-channel-protocol = { workspace = true, editable = true }
+# nanobot-webchat = { workspace = true, editable = true }
+# client-telegram-bot = { workspace = true, editable = true }
+
+# Task 3 — uncomment after you add mcp-obs.
+# mcp-obs = { workspace = true, editable = true }
 
 [dependency-groups]
 dev = [
@@ -131,9 +139,11 @@ include = [
   "mcp",
   "qwen-code-api",
   
-  # Uncomment this later in the lab after you add the matching repos/packages.
+  # Task 1 — uncomment after you create the nanobot/ project.
+  # "nanobot",
   
-  # "nanobot-websocket-channel"
+  # Task 2B — uncomment after you add the webchat channel.
+  # "nanobot-websocket-channel",
 ]
 extraPaths = [
   "backend/src",
@@ -141,8 +151,7 @@ extraPaths = [
   "mcp/mcp-obs/src",
   "qwen-code-api/src",
   
-  # Uncomment these later in the lab after you add the matching repos/packages.
-  
+  # Task 2B — uncomment after you add the webchat channel.
   # "nanobot-websocket-channel/mcp-webchat/src",
   # "nanobot-websocket-channel/nanobot-channel-protocol/src",
   # "nanobot-websocket-channel/client-telegram-bot/src",
@@ -166,9 +175,11 @@ include = [
   "mcp",
   "qwen-code-api",
   
-  # Uncomment this later in the lab after you add the matching repos/packages.
+  # Task 1 — uncomment after you create the nanobot/ project.
+  # "nanobot",
   
-  # "nanobot-websocket-channel"
+  # Task 2B — uncomment after you add the webchat channel.
+  # "nanobot-websocket-channel",
 ]
 
 [tool.ty.rules]

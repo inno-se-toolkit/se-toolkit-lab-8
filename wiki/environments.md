@@ -156,7 +156,8 @@ Examples:
 
 Docs:
 
-- [Security - `.env`](https://www.dotenv.org/docs/security/env.html)
+- [(`dotenv`) Security - `.env`](https://www.dotenv.org/docs/security/env.html)
+- [(`Docker Compose`) `.env` file syntax](https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/#env-file-syntax)
 
 ### Set the `<variable>` to `<value>` in the `.env` file at `<file-path>`
 

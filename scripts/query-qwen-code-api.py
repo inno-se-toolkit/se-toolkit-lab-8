@@ -4,31 +4,69 @@ Usage:
     python scripts/query-qwen-code-api.py [OPTIONS] PROMPT
 
 Options:
-    --base-url URL   API base URL   (default: $LLM_API_BASE_URL or http://localhost:42005/v1)
+    --env-file FILE  Load variables from a .env file (default: .env.docker.secret)
+    --base-url URL   API base URL   (default: $LLM_API_HOST_BASE_URL)
     --port PORT      Shorthand for http://localhost:<PORT>/v1 (overrides --base-url)
     --api-key KEY    API key        (default: $LLM_API_KEY)
-    --model MODEL    Model name     (default: $LLM_API_MODEL or "coder-model")
+    --model MODEL    Model name     (default: $LLM_API_MODEL)
 
 Environment variables:
-    LLM_API_BASE_URL   Default base URL
-    LLM_API_KEY        Default API key
-    LLM_API_MODEL      Default model name
+    LLM_API_HOST_BASE_URL   Default base URL (host-side)
+    LLM_API_KEY             Default API key
+    LLM_API_MODEL           Default model name
 """
 
 import argparse
 import json
-import os
 import sys
 import urllib.error
 import urllib.request
+from pathlib import Path
+
+from pydantic import Field
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+_DEFAULT_ENV_FILE = _REPO_ROOT / ".env.docker.secret"
+
+
+def _resolve_env_file() -> Path | None:
+    """Pre-parse --env-file from argv before argparse/pydantic run."""
+    pre = argparse.ArgumentParser(add_help=False)
+    pre.add_argument("--env-file", type=Path)
+    env_args, _ = pre.parse_known_args()
+    if env_args.env_file:
+        return env_args.env_file
+    if _DEFAULT_ENV_FILE.is_file():
+        return _DEFAULT_ENV_FILE
+    return None
+
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=_resolve_env_file(),
+        env_file_encoding="utf-8",
+        extra="ignore",
+    )
+
+    base_url: str = Field(..., alias="LLM_API_HOST_BASE_URL")
+    api_key: str = Field(..., alias="LLM_API_KEY")
+    model: str = Field(..., alias="LLM_API_MODEL")
 
 
 def main() -> None:
+    settings = Settings.model_validate({})
+
     parser = argparse.ArgumentParser(description="Query the Qwen Code API")
     parser.add_argument(
+        "--env-file",
+        default=None,
+        help="Load variables from a .env file (default: .env.docker.secret)",
+    )
+    parser.add_argument(
         "--base-url",
-        default=os.environ.get("LLM_API_BASE_URL", "http://localhost:42005/v1"),
-        help="API base URL (default: $LLM_API_BASE_URL or http://localhost:42005/v1)",
+        default=settings.base_url,
+        help="API base URL (default: $LLM_API_BASE_URL)",
     )
     parser.add_argument(
         "--port",
@@ -37,12 +75,12 @@ def main() -> None:
     )
     parser.add_argument(
         "--api-key",
-        default=os.environ.get("LLM_API_KEY", ""),
+        default=settings.api_key,
         help="API key (default: $LLM_API_KEY)",
     )
     parser.add_argument(
         "--model",
-        default=os.environ.get("LLM_API_MODEL", "coder-model"),
+        default=settings.model,
         help="Model name (default: $LLM_API_MODEL or coder-model)",
     )
     parser.add_argument("prompt", nargs="+", help="The prompt to send")

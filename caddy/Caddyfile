@@ -30,7 +30,7 @@
     handle /analytics* {
         reverse_proxy http://backend:{$BACKEND_CONTAINER_PORT}
     }
-    # Task 2A — uncomment once the nanobot service is running behind Caddy.
+    # Task 2B — uncomment after you add the webchat channel.
     # handle /ws/chat {
     #     reverse_proxy http://nanobot:{$NANOBOT_WEBCHAT_CONTAINER_PORT}
     # }

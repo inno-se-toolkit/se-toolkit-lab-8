@@ -16,8 +16,3 @@ tmp
 
 .lycheecache
 
-/nanobot/.python-version
-
-/nanobot/config.json
-/nanobot/config.resolved.json
-/nanobot/workspace/sessions/

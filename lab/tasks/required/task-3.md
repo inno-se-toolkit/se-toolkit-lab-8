@@ -170,7 +170,11 @@ The agent still can't access logs or traces — only you can, through the UIs. L
    > GET /select/jaeger/api/traces/<traceID>
    > ```
 
-2. Register the new tools in your nanobot config (if you wrote a separate MCP server).
+2. Uncomment the obs scaffolds (all marked with `Task 3`) so nanobot can find and run the new MCP server:
+
+   - `nanobot/pyproject.toml` — uncomment `"mcp-obs"`
+   - `nanobot/entrypoint.py` — uncomment the `nanobot_victorialogs_url` and `nanobot_victoriatraces_url` fields in `Settings`, and the `obs` MCP server block in `_resolve_config()`
+   - `docker-compose.yml` — uncomment `NANOBOT_VICTORIALOGS_URL` and `NANOBOT_VICTORIATRACES_URL` in the nanobot service environment
 
 3. Write an observability skill prompt (e.g., `nanobot/workspace/skills/observability/SKILL.md`) that teaches the agent:
    - When the user asks about errors, search logs first
@@ -188,7 +192,9 @@ The agent still can't access logs or traces — only you can, through the UIs. L
 
    - `mcp/mcp-obs/src/mcp_obs/server.py`
    - `mcp/mcp-obs/src/mcp_obs/observability.py` or the equivalent new MCP module
-   - `docker-compose.yml` or your nanobot config/entrypoint wiring for the observability endpoints
+   - `nanobot/pyproject.toml` (uncommented `mcp-obs`)
+   - `nanobot/entrypoint.py` (uncommented obs MCP server)
+   - `docker-compose.yml` (uncommented obs env vars)
    - `nanobot/workspace/skills/observability/SKILL.md`
 
    Good nanobot logs to expect after redeploy:

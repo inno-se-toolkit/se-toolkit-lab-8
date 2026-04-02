@@ -43,36 +43,27 @@ In Task 1 you ran `nanobot agent` from the VM terminal. For production, nanobot 
    From this point on, treat `nanobot/` inside the repository as the deployable copy of your agent project.
    When you change agent config or skills for the Docker deployment, edit the files in `nanobot/`.
 
-2. Your repo-local `nanobot/` directory needs a few more files for Docker deployment:
+2. Your repo-local `nanobot/` directory already contains two files for Docker deployment. Read them before proceeding:
 
-   - **`entrypoint.py`** — resolves environment variables (LLM API key, gateway host/port, backend URL) into the config at runtime, then launches `nanobot gateway`. This is needed because Docker passes config via env vars, not by editing files.
+   - **`entrypoint.py`** — resolves Docker environment variables into `config.json` at runtime, writes `config.resolved.json`, then launches `nanobot gateway`. It uses `pydantic_settings.BaseSettings` to read env vars and `nanobot.config.load_config()` to manipulate the typed config. It also wraps the gateway and every MCP server with `opentelemetry-instrument` for distributed tracing.
 
-     > **Hint:** Read `config.json`, inject env var values for provider API key/base URL, gateway host/port, and MCP server env vars (backend URL plus backend API key). Write a resolved config. Then `os.execvp("nanobot", ["nanobot", "gateway", "--config", resolved, "--workspace", workspace])`.
+     The entrypoint configures MCP servers for `lms` (Task 1) and `webchat` (Part B of this task). A third MCP server (`obs`) is commented out — you will enable it in Task 3.
 
      A good mental model for `entrypoint.py` is:
 
      1. Read `config.json`
      2. Override only the fields that must come from Docker env vars
      3. Write `config.resolved.json`
-     4. `execvp(...)` into `nanobot gateway`
+     4. `execvp(...)` into `opentelemetry-instrument nanobot gateway`
 
-   - **`Dockerfile`** — multi-stage build with `uv` (same pattern as `backend/Dockerfile`). Final CMD: `python /app/nanobot/entrypoint.py`.
+   - **`Dockerfile`** — multi-stage build with `uv` (same pattern as `backend/Dockerfile`). Accepts `APP_UID`/`APP_GID` build args so the container user matches your host UID/GID. Final CMD: `python /app/nanobot/entrypoint.py`.
 
-     > **Hint:** Before writing `nanobot/Dockerfile`, inspect the existing
-     > Dockerfiles in this repository, especially [`backend/Dockerfile`](../../../backend/Dockerfile)
-     > and `qwen-code-api/Dockerfile`.
-     > Reuse the established patterns for:
-     > - multi-stage `uv` builds
-     > - copying workspace or package files in the right order
-     > - installing dependencies before the application package when helpful
-     > - switching to a non-root runtime user in the final image
-     > - keeping that runtime user consistent with the host UID/GID if you plan to bind-mount writable source directories during development
+   You do not need to edit either file. Your job is to make sure the rest of the stack (config, deps, compose, Caddy) lines up with what these files expect.
 
    By the end of Part A, you should have modified at least:
 
-   - `nanobot/entrypoint.py`
-   - `nanobot/Dockerfile`
-   - `docker-compose.yml`
+   - `nanobot/pyproject.toml` (uncommented dependencies)
+   - `docker-compose.yml` (uncommented nanobot service)
 
 3. Uncomment the scaffolded `nanobot` service block in `docker-compose.yml` and adapt it to your implementation:
 
@@ -127,7 +118,7 @@ In Task 1 you ran `nanobot agent` from the VM terminal. For production, nanobot 
    > [!TIP]
    > **Troubleshooting common issues:**
    >
-   > **"Error: Connection error" in Flutter chat** — the agent can't reach the LLM. Your `entrypoint.py` must read the **same env var names** that the compose scaffold passes. Check: `docker exec <nanobot-container> grep apiBase /app/nanobot/config.resolved.json` — if the value is empty, your entrypoint isn't picking up the LLM env vars. Compare the variable names in `docker-compose.yml` (under the nanobot service's `environment:`) with what your `entrypoint.py` reads via `os.environ.get(...)`.
+   > **"Error: Connection error" in Flutter chat** — the agent can't reach the LLM. The `entrypoint.py` must read the **same env var names** that the compose scaffold passes. Check: `docker exec <nanobot-container> grep apiBase /app/nanobot/config.resolved.json` — if the value is empty, the entrypoint isn't picking up the LLM env vars. Compare the variable names in `docker-compose.yml` (under the nanobot service's `environment:`) with what `entrypoint.py` reads via its `Settings(BaseSettings)` class.
    >
    > **Empty page at /flutter** — the Flutter volume isn't mounted in Caddy. Make sure `client-web-flutter:/srv/flutter:ro` is uncommented in the caddy service's `volumes:`.
    >
@@ -200,43 +191,33 @@ All of these pieces are in a single repository. The webchat stack handles:
    - `nanobot-websocket-channel/mcp-webchat`
    - `nanobot-websocket-channel/nanobot-webchat`
 
-2. Install the webchat channel plugin and the UI-delivery MCP server into your nanobot environment:
+2. Uncomment `mcp-webchat` and `nanobot-webchat` in `nanobot/pyproject.toml` (marked with `Task 2B`), then sync:
 
    ```terminal
    cd nanobot
-   uv add nanobot-webchat --editable ../nanobot-websocket-channel/nanobot-webchat
-   uv add mcp-webchat --editable ../nanobot-websocket-channel/mcp-webchat
+   uv sync
    ```
 
-   This does two different jobs:
+   These two packages do different jobs:
 
    - `nanobot-webchat` registers the `webchat` channel type in nanobot via a Python entry point
    - `mcp-webchat` provides an MCP tool for sending structured UI payloads back to the active chat
 
    The current tool name exposed to the agent is `mcp_webchat_ui_message`.
 
-3. Update your `entrypoint.py` so it also injects the webchat channel settings and the webchat MCP server settings from Docker env vars:
+3. Uncomment the webchat sections in `entrypoint.py` (marked with `Task 2B`) so it injects the webchat channel settings and the webchat MCP server settings from Docker env vars:
 
-   - enable the `webchat` channel
-   - set its host from `NANOBOT_WEBCHAT_CONTAINER_ADDRESS`
-   - set its port from `NANOBOT_WEBCHAT_CONTAINER_PORT`
-   - configure an MCP server that runs `python -m mcp_webchat`
-   - pass the UI relay URL and token to that MCP server via environment variables
+   - enables the `webchat` channel with host/port from `NANOBOT_WEBCHAT_CONTAINER_ADDRESS` and `NANOBOT_WEBCHAT_CONTAINER_PORT`
+   - configures an MCP server that runs `python -m mcp_webchat`
+   - passes the UI relay URL and token to that MCP server via environment variables
 
    In the current stack, that MCP server is what lets the agent send validated `choice`, `confirm`, and `composite` payloads to the active browser chat instead of printing raw JSON into a text answer.
 
-4. Make sure your `nanobot/config.json` has the webchat channel enabled:
+   You do not need to add the webchat channel to `config.json` — the entrypoint injects it at runtime from the Docker env vars above.
 
-   ```json
-   "channels": {
-     "webchat": {
-       "enabled": true,
-        "allowFrom": ["*"]
-      }
-    }
-   ```
+   Also uncomment the matching webchat environment variables in the `nanobot` service block in `docker-compose.yml` (also marked with `Task 2B`).
 
-   The shared `structured-ui` skill should handle the generic UI behavior.
+4. The shared `structured-ui` skill should handle the generic UI behavior.
    Your LMS skill should still cooperate with it by doing the LMS-specific part:
 
    - call `lms_labs` when the user needs to choose a lab
@@ -246,6 +227,7 @@ All of these pieces are in a single repository. The webchat stack handles:
    By the end of Part B, you should have modified at least:
 
    - `nanobot/config.json`
+   - `nanobot/pyproject.toml`
    - `nanobot/entrypoint.py`
    - `nanobot/workspace/skills/lms/SKILL.md`
    - `caddy/Caddyfile`

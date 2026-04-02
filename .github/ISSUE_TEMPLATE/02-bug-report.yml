@@ -41,3 +41,14 @@ body:
       placeholder: I see an error.
     validations:
       required: true
+
+  - type: textarea
+    id: troubleshooting
+    attributes:
+      label: Troubleshooting Attempted
+      description: What did you already try to diagnose or work around the issue?
+      placeholder: |
+        - Restarted the affected service
+        - Rebuilt the Docker image
+        - Checked service logs
+        - Verified environment variables

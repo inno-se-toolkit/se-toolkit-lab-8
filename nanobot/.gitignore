@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.egg-info/
+
+config.*json
+
+workspace/sessions/
+
+.python-version
+.ruff_cache/
+.pytest_cache/
