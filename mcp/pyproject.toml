@@ -9,9 +9,13 @@ dependencies = [
     "pydantic>=2.12.0,<3.0.0",
 ]
 
+[project.scripts]
+mcp_lms = "mcp_lms.server:main"
+mcp_observability = "mcp_observability.server:main"
+
 [build-system]
 requires = ["setuptools>=75.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-include = ["mcp_lms*"]
+include = ["mcp_lms*", "mcp_observability*"]

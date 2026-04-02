@@ -32,6 +32,19 @@ def main():
     if gateway_port:
         config["gateway"]["port"] = int(gateway_port)
 
+    # Task 3 — Add observability MCP server
+    if "mcpServers" not in config.get("tools", {}):
+        config["tools"]["mcpServers"] = {}
+    
+    config["tools"]["mcpServers"]["observability"] = {
+        "command": "python",
+        "args": ["-m", "mcp_observability"],
+        "env": {
+            "VICTORIALOGS_URL": os.environ.get("NANOBOT_VICTORIALOGS_URL", "http://victorialogs:9428"),
+            "VICTORIATRACES_URL": os.environ.get("NANOBOT_VICTORIATRACES_URL", "http://victoriatraces:10428")
+        }
+    }
+
     if "mcpServers" in config.get("tools", {}):
         for server_name, server_config in config["tools"]["mcpServers"].items():
             if "env" in server_config:

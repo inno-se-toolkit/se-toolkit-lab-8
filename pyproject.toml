@@ -1,5 +1,10 @@
 [tool.uv.workspace]
-members = ["backend", "mcp", "qwen-code-api"]
+members = [
+    "backend",
+    "mcp",
+    "qwen-code-api",
+    "nanobot",
+]
 
 [tool.uv.sources]
 lms-mcp = { workspace = true }
