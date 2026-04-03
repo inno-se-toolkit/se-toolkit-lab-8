@@ -1,32 +1,21 @@
-[tool.uv.workspace]
-members = [
-    "mcp-lms",
-    # "mcp-obs"
+[project]
+name = "lms-mcp"
+version = "1.0.0"
+description = "MCP server and shared client library for the LMS backend"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.28.0,<1.0.0",
+    "mcp>=1.26.0,<2.0.0",
+    "pydantic>=2.12.0,<3.0.0",
 ]
 
-[dependency-groups]
-dev = ["poethepoet>=0.40.0", "pyright==1.1.408"]
+[project.scripts]
+mcp_lms = "mcp_lms.server:main"
+mcp_observability = "mcp_observability.server:main"
 
-[tool.poe.tasks]
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
 
-[tool.poe.tasks.check]
-help = "Run Python typechecks"
-sequence = ["pyright-check"]
-
-[tool.poe.tasks.pyright-check]
-help = "Run pyright on Python packages"
-cmd = "pyright"
-
-[tool.pyright]
-include = [
-    "mcp-lms",
-    # "mcp-obs"
-]
-extraPaths = [
-    "mcp-lms/src",
-    # "mcp-obs/src"
-]
-exclude = ["**/__pycache__", "**/.*", "**/node_modules", ".venv"]
-typeCheckingMode = "strict"
-reportUnknownMemberType = "none"
-reportMissingTypeStubs = "none"
+[tool.setuptools.packages.find]
+include = ["mcp_lms*", "mcp_observability*"]

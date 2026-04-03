@@ -1,23 +1,16 @@
 [project]
 name = "nanobot"
 version = "0.1.0"
-description = "Custom HKUDS/nanobot setup"
-readme = "README.md"
-requires-python = ">=3.14.2"
+description = "Nanobot gateway deployment"
+requires-python = "==3.14.2"
 dependencies = [
+    "nanobot-ai",
+    "nanobot-webchat",
+    "mcp-observability",
+    "httpx",
     "pydantic",
-    "pydantic-settings",
-    "opentelemetry-distro[otlp]>=0.61b0",
-    "opentelemetry-exporter-otlp-proto-grpc>=1.40.0",
-    "opentelemetry-instrumentation-logging>=0.61b0",
-    
-    # Task 1 — uncomment after you add the LMS MCP server.
-    # "mcp-lms",
-    
-    # Task 2B — uncomment after you add the webchat channel.
-    # "mcp-webchat",
-    # "nanobot-webchat",
-    
-    # Task 3 — uncomment after you add mcp-obs.
-    # "mcp-obs",
 ]
+
+[tool.uv.sources]
+nanobot-webchat = { path = "../nanobot-websocket-channel/nanobot-webchat", editable = true }
+mcp-observability = { path = "../mcp/mcp_observability", editable = true }
