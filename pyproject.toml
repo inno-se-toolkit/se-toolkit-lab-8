@@ -3,24 +3,18 @@ members = [
   "backend",
   "qwen-code-api",
   "mcp/mcp-lms",
+  "mcp/mcp-obs",
   "nanobot",
-  # Uncomment these later in the lab after you add the matching repos/packages.
-  # "mcp/mcp-obs",
   "nanobot-websocket-channel/nanobot-channel-protocol",
   "nanobot-websocket-channel/mcp-webchat",
   "nanobot-websocket-channel/nanobot-webchat",
-  "nanobot-websocket-channel/nanobot-webchat",
-  "nanobot-websocket-channel/mcp-webchat",
   # "nanobot-websocket-channel/client-telegram-bot",
 ]
 
 [tool.uv.sources]
 mcp-lms = { path = "mcp/mcp-lms", editable = true }
+mcp-obs = { path = "mcp/mcp-obs", editable = true }
 nanobot-ai = { url = "https://github.com/HKUDS/nanobot/archive/e7d371ec1e6531b28898ec2c869ef338e8dd46ec.zip" }
-
-# Uncomment these later in the lab after you add the matching repos/packages.
-
-# mcp-obs = { path = "mcp/mcp-obs", editable = true }
 mcp-webchat = { path = "nanobot-websocket-channel/mcp-webchat", editable = true }
 nanobot-channel-protocol = { path = "nanobot-websocket-channel/nanobot-channel-protocol", editable = true }
 nanobot-webchat = { path = "nanobot-websocket-channel/nanobot-webchat", editable = true }

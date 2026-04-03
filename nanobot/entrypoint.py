@@ -63,6 +63,15 @@ def main():
     if webchat_ui_relay_token:
         config["tools"]["mcpServers"]["webchat"]["env"]["NANOBOT_WEBCHAT_UI_RELAY_TOKEN"] = webchat_ui_relay_token
 
+    # Override observability MCP server settings
+    victorialogs_url = os.environ.get("NANOBOT_VICTORIALOGS_URL")
+    victoriatraces_url = os.environ.get("NANOBOT_VICTORIATRACES_URL")
+
+    if victorialogs_url:
+        config["tools"]["mcpServers"]["obs"]["env"]["NANOBOT_VICTORIALOGS_URL"] = victorialogs_url
+    if victoriatraces_url:
+        config["tools"]["mcpServers"]["obs"]["env"]["NANOBOT_VICTORIATRACES_URL"] = victoriatraces_url
+
     # Write resolved config
     with open(resolved_config_path, "w", encoding="utf-8") as f:
         json.dump(config, f, indent=2)
